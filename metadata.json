@@ -1,0 +1,6 @@
+{
+  "name": "SG Packaging Catalog",
+  "description": "Modern B2B catalog website for SG Packaging, showcasing premium packaging products manufactured in Yuyao, Ningbo, Zhejiang Province, China.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

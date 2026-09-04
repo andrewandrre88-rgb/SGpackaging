@@ -1,0 +1,34 @@
+<svg viewBox="0 0 680 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sgSFav" x1="15%" y1="10%" x2="90%" y2="90%">
+      <stop offset="0%" stop-color="#1e242d" />
+      <stop offset="45%" stop-color="#333b47" />
+      <stop offset="100%" stop-color="#12161d" />
+    </linearGradient>
+    <linearGradient id="sgGFav" x1="20%" y1="5%" x2="85%" y2="95%">
+      <stop offset="0%" stop-color="#1a0cb8" />
+      <stop offset="40%" stop-color="#3222e3" />
+      <stop offset="100%" stop-color="#10066b" />
+    </linearGradient>
+    <linearGradient id="sgOrbitFav" x1="0%" y1="100%" x2="100%" y2="15%">
+      <stop offset="0%" stop-color="#2e48fa" />
+      <stop offset="45%" stop-color="#2419cb" />
+      <stop offset="85%" stop-color="#1a0c9a" />
+      <stop offset="100%" stop-color="#120675" />
+    </linearGradient>
+    <linearGradient id="sgTailFav" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#130664" />
+      <stop offset="60%" stop-color="#281ced" />
+      <stop offset="100%" stop-color="#384dfa" />
+    </linearGradient>
+  </defs>
+
+  <path d="M 18 290 C -2 245 10 155 105 85 C 72 120 42 185 58 240 C 72 285 115 315 170 330 C 105 335 45 325 18 290 Z" fill="url(#sgOrbitFav)" />
+  <path d="M 22 290 C 85 348 205 365 335 345 C 465 325 565 265 595 205 C 610 175 605 140 580 112 C 555 85 510 65 455 52 C 510 68 550 92 568 118 C 585 142 585 168 570 195 C 545 248 450 305 330 325 C 205 345 95 330 22 290 Z" fill="url(#sgOrbitFav)" />
+  <path d="M 235 330 C 335 336 445 300 535 245 C 455 295 350 326 235 330 Z" fill="url(#sgTailFav)" />
+
+  <g transform="matrix(0.96 0 -0.22 0.96 85 15)">
+    <path d="M 420 45 C 330 45 255 105 255 195 C 255 285 330 345 425 345 C 500 345 550 305 570 250 L 485 250 C 472 275 448 292 420 292 C 362 292 320 250 320 195 C 320 140 362 98 420 98 C 460 98 490 118 505 152 L 425 152 L 425 202 L 575 202 L 575 105 C 535 65 480 45 420 45 Z" fill="url(#sgGFav)" />
+    <path d="M 235 52 L 125 52 C 70 52 28 85 28 138 C 28 182 62 204 120 216 C 182 228 204 240 204 265 C 204 290 178 302 138 302 C 92 302 52 282 28 256 L 2 305 C 40 332 90 345 142 345 C 215 345 270 312 270 256 C 270 206 232 184 175 172 C 112 160 92 148 92 126 C 92 105 115 92 145 92 C 182 92 215 108 235 126 L 255 82 C 248 72 242 62 235 52 Z" fill="url(#sgSFav)" />
+  </g>
+</svg>
