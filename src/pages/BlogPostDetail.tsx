@@ -151,7 +151,7 @@ export default function BlogPostDetail() {
                 <span>Contact Engineering Team</span>
               </Link>
               <a
-                href="https://wa.me/8613757050848"
+                href="https://wa.me/8618567413851"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-2xl transition-all inline-flex items-center gap-2"

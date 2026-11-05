@@ -57,10 +57,10 @@ export default function Contact() {
                       <h3 className="font-bold text-slate-900 text-base">WhatsApp / WeChat Direct</h3>
                       <span className="bg-emerald-200/60 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">24/7 Live</span>
                     </div>
-                    <p className="text-slate-900 font-black text-lg my-1">+86 13757050848</p>
+                    <p className="text-slate-900 font-black text-lg my-1">+86 18567413851</p>
                     <p className="text-slate-500 text-xs mb-3">Instant messaging for quick sample requests & pricing.</p>
                     <a
-                      href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+                      href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors shadow-sm"
@@ -143,7 +143,7 @@ export default function Contact() {
                       Send Another Message
                     </button>
                     <a
-                      href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20just%20submitted%20an%20inquiry%20via%20your%20website."
+                      href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20just%20submitted%20an%20inquiry%20via%20your%20website."
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-6 py-2.5 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"

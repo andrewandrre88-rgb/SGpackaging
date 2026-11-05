@@ -61,13 +61,13 @@ export default function Home() {
                     Explore Product Catalog
                   </Link>
                   <a
-                    href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20request%20a%20catalog%20and%20pricing."
+                    href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20request%20a%20catalog%20and%20pricing."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-6 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-md active:scale-95"
                   >
                     <WhatsAppIcon className="w-5 h-5 fill-white" />
-                    <span>WhatsApp Sales (+86 13757050848)</span>
+                    <span>WhatsApp Sales (+86 18567413851)</span>
                   </a>
                   <Link
                     to="/contact"
@@ -291,7 +291,7 @@ export default function Home() {
                         Specs & Details
                       </Link>
                       <a
-                        href={`https://wa.me/8613757050848?text=${encodeURIComponent(`Hello SG Packaging, I would like to inquire about ${product.name} (MOQ: ${product.moq}).`)}`}
+                        href={`https://wa.me/8618567413851?text=${encodeURIComponent(`Hello SG Packaging, I would like to inquire about ${product.name} (MOQ: ${product.moq}).`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold rounded-lg transition-colors"
@@ -373,13 +373,13 @@ export default function Home() {
               Contact Sales Team
             </Link>
             <a
-              href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20request%20samples%20and%20a%20quote."
+              href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20request%20samples%20and%20a%20quote."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#25D366] hover:bg-[#20ba59] text-white px-8 py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base transition-colors"
             >
               <WhatsAppIcon className="w-5 h-5 fill-white" />
-              <span>Chat WhatsApp: +86 13757050848</span>
+              <span>Chat WhatsApp: +86 18567413851</span>
             </a>
           </div>
         </div>

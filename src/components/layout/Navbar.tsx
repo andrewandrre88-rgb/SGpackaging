@@ -48,13 +48,13 @@ export default function Navbar() {
             </a>
             <span className="text-slate-700">|</span>
             <a
-              href="https://wa.me/8613757050848"
+              href="https://wa.me/8618567413851"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 text-emerald-400 hover:text-emerald-300 transition-colors font-semibold"
             >
               <WhatsAppIcon className="w-3.5 h-3.5 fill-[#25D366]" />
-              <span>WhatsApp: +86 13757050848</span>
+              <span>WhatsApp: +86 18567413851</span>
             </a>
             <span className="text-slate-700">|</span>
             <Link
@@ -108,15 +108,15 @@ export default function Navbar() {
             {/* Actions for Desktop/Laptop */}
             <div className="hidden lg:flex items-center gap-2.5 xl:gap-3.5">
               <a
-                href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+                href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 xl:px-4 py-2 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 text-xs font-bold rounded-full transition-colors border border-emerald-200 shadow-sm shrink-0"
-                title="Chat on WhatsApp (+86 13757050848)"
+                title="Chat on WhatsApp (+86 18567413851)"
               >
                 <WhatsAppIcon className="w-4 h-4 fill-[#25D366]" />
                 <span className="hidden xl:inline">WhatsApp</span>
-                <span className="text-slate-800 font-semibold text-[11px]">+86 13757050848</span>
+                <span className="text-slate-800 font-semibold text-[11px]">+86 18567413851</span>
               </a>
               <Link 
                 to="/contact" 
@@ -129,7 +129,7 @@ export default function Navbar() {
             {/* Mobile / Tablet Menu Button */}
             <div className="lg:hidden flex items-center gap-2">
               <a
-                href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+                href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-full transition-colors"
@@ -177,14 +177,14 @@ export default function Navbar() {
 
             <div className="pt-4 border-t border-slate-100 mt-3 space-y-2">
               <a
-                href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+                href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 w-full text-center bg-[#25D366] text-white px-5 py-3 rounded-xl text-sm font-bold shadow-md hover:bg-[#20ba59] transition-colors"
               >
                 <WhatsAppIcon className="w-5 h-5 fill-white" />
-                <span>Chat on WhatsApp (+86 13757050848)</span>
+                <span>Chat on WhatsApp (+86 18567413851)</span>
               </a>
               <Link 
                 to="/contact" 

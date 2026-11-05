@@ -93,6 +93,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
 
+      if (err?.code === 'auth/unauthorized-domain') {
+        setAuthError(
+          `Domain not authorized: Please add "${window.location.hostname}" to your Firebase Console under Authentication > Settings > Authorized domains.`
+        );
+        return;
+      }
+
       console.warn('Google Sign-In Notice:', err?.message || err);
       setAuthError(err?.message || 'Failed to sign in with Google. Please try again.');
     } finally {

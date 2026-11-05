@@ -186,7 +186,7 @@ export default function Factory() {
               Book Factory Tour
             </Link>
             <a
-              href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20schedule%20a%20factory%20audit%20and%20request%20samples."
+              href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20schedule%20a%20factory%20audit%20and%20request%20samples."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-[#25D366] hover:bg-[#20ba59] text-white font-bold px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 text-sm transition-colors"

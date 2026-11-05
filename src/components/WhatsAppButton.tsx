@@ -1,8 +1,8 @@
 import WhatsAppIcon from './WhatsAppIcon';
 
 export default function WhatsAppButton() {
-  const phoneNumber = '8613757050848';
-  const displayPhone = '+86 13757050848';
+  const phoneNumber = '8618567413851';
+  const displayPhone = '+86 18567413851';
   const message = 'Hello SG Packaging, I would like to inquire about your packaging products.';
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 

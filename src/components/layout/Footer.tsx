@@ -75,13 +75,13 @@ export default function Footer() {
             <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">Inquiry Support</p>
             <p className="text-sm font-medium text-slate-300 mb-2">sales@sgpackaging.com</p>
             <a
-              href="https://wa.me/8613757050848?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+              href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#25D366] hover:text-emerald-400 transition-colors mb-6"
             >
               <WhatsAppIcon className="w-4 h-4 fill-[#25D366]" />
-              <span>WhatsApp: +86 13757050848</span>
+              <span>WhatsApp: +86 18567413851</span>
             </a>
             
             <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">Production Lead Time</p>

@@ -155,13 +155,13 @@ export default function ProductDetail() {
             {/* Action Buttons for Desktop and Mobile */}
             <div className="flex flex-col sm:flex-row gap-3.5 pt-4 border-t border-slate-100">
               <a 
-                href={`https://wa.me/8613757050848?text=${encodeURIComponent(`Hello SG Packaging, I would like to inquire about ${product.name} (MOQ: ${product.moq}, Neck: ${product.specifications['Neck Size'] || 'N/A'}).`)}`}
+                href={`https://wa.me/8618567413851?text=${encodeURIComponent(`Hello SG Packaging, I would like to inquire about ${product.name} (MOQ: ${product.moq}, Neck: ${product.specifications['Neck Size'] || 'N/A'}).`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-xl font-bold transition-all shadow-md active:scale-95 text-sm sm:text-base"
               >
                 <WhatsAppIcon className="w-5 h-5 fill-white" />
-                <span>Chat on WhatsApp (+86 13757050848)</span>
+                <span>Chat on WhatsApp (+86 18567413851)</span>
               </a>
               <Link
                 to="/contact" 
@@ -200,7 +200,7 @@ export default function ProductDetail() {
             </div>
             
             <a
-              href={`https://wa.me/8613757050848?text=${encodeURIComponent(`Hello SG Packaging, please send me the technical drawing and TDS for ${product.name}.`)}`}
+              href={`https://wa.me/8618567413851?text=${encodeURIComponent(`Hello SG Packaging, please send me the technical drawing and TDS for ${product.name}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 w-full flex items-center justify-center px-6 py-3.5 border border-slate-200 text-slate-800 rounded-xl font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors"
