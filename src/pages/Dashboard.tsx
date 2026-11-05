@@ -23,6 +23,7 @@ import { useProducts, useBlogPosts, createProduct, deleteProduct, createBlogPost
 import { CATEGORIES } from '../data';
 import SGLogo from '../components/SGLogo';
 import ImageUploader from '../components/ImageUploader';
+import MultiImageUploader from '../components/MultiImageUploader';
 
 // Quick preset image library for convenience
 const PRESET_IMAGES = [
@@ -56,8 +57,7 @@ export default function Dashboard() {
     description: '',
     moq: '10,000 pcs',
     packagingDetails: '500 pcs/carton',
-    image: PRESET_IMAGES[0].url,
-    galleryImage2: '',
+    images: [PRESET_IMAGES[0].url],
     seoKeywords: '',
     neckSize: '28/410',
     output: '1.0 - 1.2 ml/T',
@@ -87,6 +87,12 @@ export default function Dashboard() {
   const handleProductSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setActionError(null);
+
+    if (productForm.images.length === 0) {
+      setActionError('Please upload or select at least one product image.');
+      return;
+    }
+
     setSubmitting(true);
 
     try {
@@ -100,7 +106,8 @@ export default function Dashboard() {
         .map(c => c.trim())
         .filter(Boolean);
 
-      const gallery = [productForm.image, productForm.galleryImage2].filter(Boolean);
+      const primaryImage = productForm.images[0];
+      const gallery = productForm.images;
 
       await createProduct({
         name: productForm.name,
@@ -109,8 +116,8 @@ export default function Dashboard() {
         description: productForm.description,
         moq: productForm.moq,
         packagingDetails: productForm.packagingDetails,
-        image: productForm.image,
-        gallery: gallery.length > 0 ? gallery : [productForm.image],
+        image: primaryImage,
+        gallery: gallery,
         seoKeywords: productForm.seoKeywords,
         features: features.length > 0 ? features : ['Precision engineered', 'Chemical resistant'],
         colors: colors.length > 0 ? colors : ['White', 'Black'],
@@ -121,7 +128,7 @@ export default function Dashboard() {
         }
       });
 
-      showSuccess('Product published successfully to catalog!');
+      showSuccess(`Product with ${gallery.length} photos published successfully!`);
       setIsProductModalOpen(false);
       // Reset form
       setProductForm({
@@ -131,8 +138,7 @@ export default function Dashboard() {
         description: '',
         moq: '10,000 pcs',
         packagingDetails: '500 pcs/carton',
-        image: PRESET_IMAGES[0].url,
-        galleryImage2: '',
+        images: [PRESET_IMAGES[0].url],
         seoKeywords: '',
         neckSize: '28/410',
         output: '1.0 - 1.2 ml/T',
@@ -792,23 +798,15 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Product Image Uploader */}
-              <ImageUploader
-                label="Primary Product Photo"
+              {/* Multi-Photo Product Gallery Uploader */}
+              <MultiImageUploader
+                label="Product Photos & Gallery"
                 required
-                value={productForm.image}
-                onChange={(img) => setProductForm({ ...productForm, image: img })}
+                images={productForm.images}
+                onChange={(imgs) => setProductForm({ ...productForm, images: imgs })}
                 presetImages={PRESET_IMAGES}
-                helperText="Upload high-res photos from your phone or computer. Images are automatically optimized for fast web loading."
-              />
-
-              {/* Optional Secondary Gallery Photo */}
-              <ImageUploader
-                label="Secondary Gallery Photo (Optional)"
-                value={productForm.galleryImage2}
-                onChange={(img) => setProductForm({ ...productForm, galleryImage2: img })}
-                presetImages={PRESET_IMAGES}
-                helperText="Upload an angle, detail, or alternate color photo from your device."
+                maxImages={10}
+                helperText="Select or drop multiple photos at once from your device. The first photo is your main cover photo, and all photos appear in the interactive product detail gallery."
               />
 
               {/* SEO Search Keywords */}

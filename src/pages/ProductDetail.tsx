@@ -43,28 +43,36 @@ export default function ProductDetail() {
           {/* Image Gallery - Sticky on Computer / Desktop */}
           <div className="lg:col-span-6 2xl:col-span-5">
             <div className="lg:sticky lg:top-36 flex flex-col gap-4">
-              <div className="aspect-square w-full bg-slate-50/60 border border-slate-200 rounded-3xl overflow-hidden flex items-center justify-center p-8 sm:p-12 shadow-sm">
-                <img 
-                  src={product.gallery[activeImage] || product.image} 
-                  alt={product.name} 
-                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              {product.gallery.length > 1 && (
-                <div className="grid grid-cols-4 gap-3">
-                  {product.gallery.map((img, idx) => (
-                    <button 
-                      key={idx}
-                      onClick={() => setActiveImage(idx)}
-                      className={`relative aspect-square rounded-2xl overflow-hidden border-2 bg-slate-50 flex items-center justify-center p-2 transition-all ${
-                        activeImage === idx ? 'border-blue-600 shadow-sm' : 'border-slate-200 hover:border-slate-400'
-                      }`}
-                    >
-                      <img src={img} alt="" className="w-full h-full object-contain" />
-                    </button>
-                  ))}
-                </div>
-              )}
+              {/* Safely handle gallery array */}
+              {(() => {
+                const gallery = Array.isArray(product.gallery) && product.gallery.length > 0 ? product.gallery : [product.image];
+                return (
+                  <>
+                    <div className="aspect-square w-full bg-slate-50/60 border border-slate-200 rounded-3xl overflow-hidden flex items-center justify-center p-8 sm:p-12 shadow-sm">
+                      <img 
+                        src={gallery[activeImage] || product.image} 
+                        alt={product.name} 
+                        className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    {gallery.length > 1 && (
+                      <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+                        {gallery.map((img, idx) => (
+                          <button 
+                            key={idx}
+                            onClick={() => setActiveImage(idx)}
+                            className={`relative aspect-square rounded-2xl overflow-hidden border-2 bg-slate-50 flex items-center justify-center p-2 transition-all cursor-pointer ${
+                              activeImage === idx ? 'border-blue-600 shadow-sm ring-2 ring-blue-500/20' : 'border-slate-200 hover:border-slate-400'
+                            }`}
+                          >
+                            <img src={img} alt="" className="w-full h-full object-contain" />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                );
+              })()}
               
               <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 text-xs text-slate-500 flex items-center justify-between mt-2">
                 <span>Direct Yuyao Factory Production</span>
