@@ -1,7 +1,8 @@
-import { Product, Category } from './types';
+import { Product, Category, BlogPost } from './types';
 import triggerSprayerImg from './assets/images/trigger_sprayer_1783250299009.jpg';
 import lotionPumpImg from './assets/images/lotion_pump_1783250311172.jpg';
 import cosmeticPackagingImg from './assets/images/cosmetic_packaging_1783250321247.jpg';
+import factoryInteriorImg from './assets/images/factory_interior_1783250334324.jpg';
 import premiumTrigger1 from './assets/images/premium_trigger_1.png';
 import premiumTrigger2 from './assets/images/premium_trigger_2.png';
 import premiumTrigger3 from './assets/images/premium_trigger_3.png';
@@ -170,5 +171,76 @@ export const PRODUCTS: Product[] = [
     gallery: [
       lotionPumpImg
     ]
+  }
+];
+
+export const INITIAL_BLOG_POSTS: BlogPost[] = [
+  {
+    id: 'post-1',
+    title: 'The Future of Sustainable Cosmetic Packaging',
+    excerpt: 'Explore the latest trends in eco-friendly materials like PCR and bioplastics reshaping the beauty industry.',
+    content: `Sustainable packaging is no longer just a marketing angle—it has become a core business requirement for personal care and beauty brands worldwide. 
+
+As global consumers demand less environmental impact and stricter regulations take effect in North America and Europe, packaging manufacturers are investing heavily in innovative material science.
+
+Key developments shaping 2024 and beyond include:
+1. Post-Consumer Recycled (PCR) Resins: Incorporating 30% to 100% PCR HDPE and PET into bottles and jars while maintaining structural integrity and drop test standards.
+2. Monomaterial Dispensers: Replacing multi-material pump mechanisms (which traditionally rely on steel internal springs and mixed polymers) with 100% polyolefin pumps that can be recycled directly in curbside streams without disassembly.
+3. Lightweighting Engineering: Precision wall-thickness optimization that reduces virgin plastic usage by 15-20% without compromising top-load capacity or vacuum performance.
+
+At SG Packaging, our Yuyao manufacturing facility is equipped with dedicated high-tonnage electric injection molding machines dedicated to PCR formulations, providing third-party certified recycled content verification for our enterprise partners.`,
+    date: 'Oct 15, 2024',
+    author: 'Admin',
+    image: cosmeticPackagingImg,
+    category: 'Industry Trends',
+    readTime: '5 min read'
+  },
+  {
+    id: 'post-2',
+    title: 'How to Choose the Right Trigger Sprayer for Your Product',
+    excerpt: "A comprehensive buyer's guide on selecting the correct nozzle, output, and material for chemical and household products.",
+    content: `Choosing the correct trigger sprayer requires balancing liquid viscosity, chemical compatibility, ergonomics, and branding aesthetics.
+
+1. Dispensing Output & Dosage:
+Standard domestic cleaners typically perform best with an output of 1.0ml to 1.2ml per stroke. Heavy-duty commercial cleaners, degreasers, or automotive tire care products frequently require high-output engines delivering 1.4ml to 2.0ml per pull to cover wide surface areas efficiently.
+
+2. Spray Pattern & Nozzle Versatility:
+Dual-action nozzles offering both a fine mist atomization and a focused jet stream are ideal for all-purpose sanitizers. For kitchen degreasers or foaming bathroom cleaners, specialized mesh-screen foaming nozzles aerate the liquid to cling to vertical surfaces.
+
+3. Chemical Compatibility:
+Always verify the elastomer seals and spring chemistry:
+- Standard water-based formulas: NBR (Nitrile) seals with 302 stainless steel springs.
+- Corrosive solvents, harsh acids, or aggressive chemicals: Viton / FKM seals and 316 stainless steel springs or external spring designs where the liquid never contacts metal.
+
+Our engineering team in Houston and Ningbo can test your specific liquid bulk formulations with our full trigger sprayer catalog to ensure zero stress cracking and zero leakage under transport vibration.`,
+    date: 'Sep 28, 2024',
+    author: 'Technical Team',
+    image: triggerSprayerImg,
+    category: 'Buying Guides',
+    readTime: '6 min read'
+  },
+  {
+    id: 'post-3',
+    title: 'Understanding Packaging MOQs in Chinese Factories',
+    excerpt: 'Demystifying minimum order quantities, lead times, and how to negotiate better terms with manufacturers.',
+    content: `For procurement managers and growing brands, Minimum Order Quantities (MOQs) can be one of the most misunderstood aspects of overseas manufacturing.
+
+Why Do Factories Enforce MOQs?
+A plastic injection molding or blow molding run requires substantial machine setup time. Swapping heavy steel molds, purging hot runners, cleaning barrel screws, and calibrating color masterbatch can consume several hours and dozens of kilograms of test resin before stable production is reached.
+
+Typical Industry Benchmarks:
+- Standard Color Stock Components (e.g. White/Natural): 10,000 units.
+- Custom Pantone Color Match (Dispensers & Bottles): 20,000 units.
+- Custom Tooling & Proprietary Molds: 50,000+ units.
+
+Strategies to Optimize Your Orders:
+1. Standardize Closures: Use universal 24/410 or 28/410 neck finishes across multiple product lines so orders can be combined to meet production minimums.
+2. Blanket Purchase Orders: Commit to an annual volume with staged quarterly releases to lock in bulk tier pricing while minimizing storage strain.
+3. Work with Hybrid Partners: SG Packaging's presence with our engineering hub in Houston, Texas and direct factory floor in Yuyao, Ningbo bridges the gap between global pricing and localized logistics.`,
+    date: 'Sep 10, 2024',
+    author: 'Sourcing Expert',
+    image: factoryInteriorImg,
+    category: 'Business Tips',
+    readTime: '4 min read'
   }
 ];

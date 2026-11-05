@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { CATEGORIES, PRODUCTS } from '../data';
+import { CATEGORIES } from '../data';
+import { useProducts } from '../services/storeService';
 import { motion } from 'motion/react';
 import { CheckCircle2, Globe2, ShieldCheck, Factory, Award, ArrowRight, Sparkles, Box, Phone } from 'lucide-react';
 import factoryInteriorImg from '../assets/images/factory_interior_1783250334324.jpg';
@@ -7,6 +8,7 @@ import qualityControlImg from '../assets/images/quality_control_1783250348911.jp
 import WhatsAppIcon from '../components/WhatsAppIcon';
 
 export default function Home() {
+  const { products } = useProducts();
   return (
     <div className="flex-1 flex flex-col">
       {/* Hero Section */}
@@ -251,7 +253,7 @@ export default function Home() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {PRODUCTS.slice(0, 3).map((product) => (
+            {products.slice(0, 3).map((product) => (
               <div
                 key={product.id}
                 className="group border border-slate-200/90 rounded-2xl overflow-hidden hover:border-blue-400 hover:shadow-xl transition-all duration-300 bg-white flex flex-col"

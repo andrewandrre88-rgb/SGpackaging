@@ -12,24 +12,31 @@ import ProductDetail from './pages/ProductDetail';
 import Factory from './pages/Factory';
 import Gallery from './pages/Gallery';
 import Blog from './pages/Blog';
+import BlogPostDetail from './pages/BlogPostDetail';
 import Contact from './pages/Contact';
+import Dashboard from './pages/Dashboard';
+import { AuthProvider } from './context/AuthContext';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/factory" element={<Factory />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/products/:id" element={<ProductDetail />} />
+            <Route path="/factory" element={<Factory />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPostDetail />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/login" element={<Dashboard />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
-

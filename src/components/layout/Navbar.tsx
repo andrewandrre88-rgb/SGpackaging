@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Menu, X, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Clock, ShieldCheck } from 'lucide-react';
 import { cn } from '../../lib/utils';
 import WhatsAppIcon from '../WhatsAppIcon';
 import SGLogo from '../SGLogo';
@@ -56,6 +56,15 @@ export default function Navbar() {
               <WhatsAppIcon className="w-3.5 h-3.5 fill-[#25D366]" />
               <span>WhatsApp: +86 13757050848</span>
             </a>
+            <span className="text-slate-700">|</span>
+            <Link
+              to="/admin"
+              className="flex items-center gap-1 text-slate-400 hover:text-white transition-colors font-medium"
+              title="Admin Management Dashboard"
+            >
+              <ShieldCheck size={12} className="text-blue-400" />
+              <span>Admin</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -183,6 +192,14 @@ export default function Navbar() {
                 className="block w-full text-center bg-slate-900 text-white px-5 py-3 rounded-xl text-sm font-bold uppercase tracking-wider hover:bg-blue-600 transition-colors"
               >
                 Request a Custom Quote
+              </Link>
+              <Link 
+                to="/admin" 
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-center gap-2 w-full text-center bg-slate-100 text-slate-800 px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-slate-200 transition-colors border border-slate-200"
+              >
+                <ShieldCheck size={14} className="text-blue-600" />
+                <span>Admin Management Dashboard</span>
               </Link>
             </div>
           </div>

@@ -1,0 +1,73 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Packaging product manufactured by SG Packaging",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 100 },
+        "shortDescription": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 5000 },
+        "features": { "type": "array", "description": "Key product bullet points" },
+        "specifications": { "type": "object", "description": "Technical specifications map" },
+        "colors": { "type": "array", "description": "Available color variants" },
+        "moq": { "type": "string", "maxLength": 100 },
+        "packagingDetails": { "type": "string", "maxLength": 500 },
+        "image": { "type": "string", "maxLength": 200000 },
+        "gallery": { "type": "array", "description": "Gallery image URLs or device uploaded data strings" },
+        "seoKeywords": { "type": "string", "maxLength": 500 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      },
+      "required": ["name", "category", "shortDescription", "description", "image", "createdBy"]
+    },
+    "BlogPost": {
+      "title": "BlogPost",
+      "description": "Article published on SG Packaging Industry Blog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 250 },
+        "category": { "type": "string", "maxLength": 100 },
+        "excerpt": { "type": "string", "maxLength": 800 },
+        "content": { "type": "string", "maxLength": 20000 },
+        "author": { "type": "string", "maxLength": 100 },
+        "image": { "type": "string", "maxLength": 200000 },
+        "date": { "type": "string", "maxLength": 50 },
+        "seoKeywords": { "type": "string", "maxLength": 500 },
+        "createdBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      },
+      "required": ["title", "category", "excerpt", "content", "author", "image", "createdBy"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Authorized administrator user profile",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 200 },
+        "role": { "type": "string", "enum": ["super_admin", "editor"], "maxLength": 50 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Custom products created via dashboard"
+    },
+    "/blog_posts/{postId}": {
+      "schema": { "$ref": "#/entities/BlogPost" },
+      "description": "Blog posts created via dashboard"
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/Admin" },
+      "description": "Authorized admins mapping"
+    }
+  }
+}

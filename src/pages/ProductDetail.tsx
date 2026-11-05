@@ -1,13 +1,22 @@
 import { useParams, Link } from 'react-router-dom';
-import { PRODUCTS } from '../data';
-import { ArrowLeft, Mail, Download } from 'lucide-react';
+import { useProducts } from '../services/storeService';
+import { useSEO } from '../lib/useSEO';
+import { ArrowLeft, Mail, Download, Tag } from 'lucide-react';
 import { useState } from 'react';
 import WhatsAppIcon from '../components/WhatsAppIcon';
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
-  const product = PRODUCTS.find(p => p.id === id);
+  const { products, loading } = useProducts();
+  const product = products.find(p => p.id === id);
   const [activeImage, setActiveImage] = useState(0);
+
+  useSEO({
+    title: product ? `${product.name} - Packaging Manufacturer` : 'Packaging Catalog',
+    description: product ? `${product.shortDescription} Manufactured by SG Packaging in Yuyao with US HQ in Houston.` : undefined,
+    keywords: product?.seoKeywords || (product ? `${product.name}, ${product.category}, trigger sprayer, packaging manufacturer` : undefined),
+    image: product?.image
+  });
 
   if (!product) {
     return (
@@ -116,6 +125,23 @@ export default function ProductDetail() {
                 <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Export Packaging Details</span>
                 <span className="font-medium text-slate-700 text-sm">{product.packagingDetails}</span>
               </div>
+
+              {/* SEO Search Tags */}
+              {product.seoKeywords && (
+                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                  <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-2 flex items-center gap-1.5">
+                    <Tag size={12} className="text-blue-500" />
+                    <span>Search & Industry Tags</span>
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {product.seoKeywords.split(',').map((kw, i) => (
+                      <span key={i} className="px-2.5 py-0.5 bg-white text-slate-600 text-xs font-medium rounded-md border border-slate-200">
+                        #{kw.trim()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Action Buttons for Desktop and Mobile */}
@@ -186,7 +212,7 @@ export default function ProductDetail() {
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PRODUCTS.filter(p => p.id !== product.id).slice(0, 3).map((item) => (
+            {products.filter(p => p.id !== product.id).slice(0, 3).map((item) => (
               <Link
                 key={item.id}
                 to={`/products/${item.id}`}

@@ -1,6 +1,6 @@
 {
   "name": "SG Packaging Catalog",
-  "description": "Modern B2B catalog website for SG Packaging, showcasing premium packaging products manufactured in Yuyao, Ningbo, Zhejiang Province, China.",
+  "description": "SG Packaging is a premier manufacturer and supplier of trigger sprayers, lotion pumps, mist dispensers, and cosmetic packaging. US Headquarters in Houston, Texas & ISO-certified factory in Yuyao, Ningbo.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

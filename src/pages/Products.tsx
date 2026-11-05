@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
-import { PRODUCTS, CATEGORIES } from '../data';
-import { Search, Filter, LayoutGrid, List, X, ExternalLink } from 'lucide-react';
+import { CATEGORIES } from '../data';
+import { useProducts } from '../services/storeService';
+import { Search, Filter, LayoutGrid, List, X, ExternalLink, PlusCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import WhatsAppIcon from '../components/WhatsAppIcon';
 
 export default function Products() {
+  const { products, loading } = useProducts();
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get('category') || 'all';
 
@@ -31,11 +33,11 @@ export default function Products() {
     }
   };
 
-  const filteredProducts = PRODUCTS.filter(product => {
+  const filteredProducts = products.filter(product => {
     const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           product.shortDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          (product.specifications['Neck Size'] && product.specifications['Neck Size'].toLowerCase().includes(searchTerm.toLowerCase()));
+                          (product.specifications?.['Neck Size'] && product.specifications['Neck Size'].toLowerCase().includes(searchTerm.toLowerCase()));
     const matchesCategory = selectedCategory === 'all' || product.category === CATEGORIES.find(c => c.id === selectedCategory)?.name;
     
     return matchesSearch && matchesCategory;

@@ -91,9 +91,10 @@ export default function Footer() {
 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-medium text-slate-500">
           <p>&copy; {new Date().getFullYear()} SG Packaging (Sino Gate). All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="flex space-x-6 mt-4 md:mt-0 items-center">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+            <Link to="/admin" className="text-slate-400 hover:text-blue-400 transition-colors">Admin Dashboard</Link>
           </div>
         </div>
       </div>
