@@ -895,189 +895,200 @@ export default function Dashboard() {
 
       {/* MODAL: ADD PRODUCT */}
       {isProductModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-              <div>
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Package className="text-blue-500" size={22} />
-                  <span>Add New Product to Catalog</span>
-                </h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  New products will immediately appear on the public website catalog with full detail pages.
-                </p>
+        <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92vh] sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <form onSubmit={handleProductSubmit} className="flex flex-col h-full max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
+              {/* Sticky Responsive Header */}
+              <div className="shrink-0 px-4 sm:px-7 py-3.5 sm:py-4 border-b border-slate-800 flex items-center justify-between gap-3 bg-slate-900">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-2 bg-blue-500/20 text-blue-400 rounded-xl shrink-0">
+                    <Package size={20} />
+                  </div>
+                  <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-bold text-white truncate">
+                      Add New Product to Catalog
+                    </h2>
+                    <p className="text-[11px] text-slate-400 truncate">
+                      Publishes immediately to the public catalog with full detail page
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsProductModalOpen(false)}
+                  className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer shrink-0"
+                  title="Close modal"
+                >
+                  <X size={18} />
+                </button>
               </div>
-              <button
-                onClick={() => setIsProductModalOpen(false)}
-                className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
 
-            <form onSubmit={handleProductSubmit} className="space-y-4 text-xs sm:text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Scrollable Form Content */}
+              <div className="flex-1 overflow-y-auto px-4 sm:px-7 py-4 space-y-4 text-xs sm:text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Product Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={productForm.name}
+                      onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
+                      placeholder="e.g. 28/410 High-Output Chemical Trigger Sprayer"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
+                    <select
+                      value={productForm.category}
+                      onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                    >
+                      {CATEGORIES.map(cat => (
+                        <option key={cat.id} value={cat.name}>{cat.name}</option>
+                      ))}
+                      <option value="Custom Packaging">Custom Packaging</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Product Name *</label>
+                  <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Tagline *</label>
                   <input
                     type="text"
                     required
-                    value={productForm.name}
-                    onChange={(e) => setProductForm({ ...productForm, name: e.target.value })}
-                    placeholder="e.g. 28/410 High-Output Chemical Trigger Sprayer"
+                    value={productForm.shortDescription}
+                    onChange={(e) => setProductForm({ ...productForm, shortDescription: e.target.value })}
+                    placeholder="e.g. Ergonomic design with fine mist and stream dual actuation for commercial cleaning."
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
-                  <select
-                    value={productForm.category}
-                    onChange={(e) => setProductForm({ ...productForm, category: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500"
-                  >
-                    {CATEGORIES.map(cat => (
-                      <option key={cat.id} value={cat.name}>{cat.name}</option>
-                    ))}
-                    <option value="Custom Packaging">Custom Packaging</option>
-                  </select>
+                  <label className="block text-slate-300 font-medium mb-1.5">Full Detailed Description *</label>
+                  <textarea
+                    required
+                    rows={3}
+                    value={productForm.description}
+                    onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
+                    placeholder="Provide comprehensive details about manufacturing specifications, chemical compatibility, and application scenarios."
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Tagline *</label>
-                <input
-                  type="text"
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Neck Size Finish</label>
+                    <input
+                      type="text"
+                      value={productForm.neckSize}
+                      onChange={(e) => setProductForm({ ...productForm, neckSize: e.target.value })}
+                      placeholder="e.g. 28/410, 24/410"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Discharge Output</label>
+                    <input
+                      type="text"
+                      value={productForm.output}
+                      onChange={(e) => setProductForm({ ...productForm, output: e.target.value })}
+                      placeholder="e.g. 1.0 - 1.2 ml/T"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Material Composition</label>
+                    <input
+                      type="text"
+                      value={productForm.material}
+                      onChange={(e) => setProductForm({ ...productForm, material: e.target.value })}
+                      placeholder="e.g. PP / PE / 304 SS"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Minimum Order Quantity (MOQ)</label>
+                    <input
+                      type="text"
+                      value={productForm.moq}
+                      onChange={(e) => setProductForm({ ...productForm, moq: e.target.value })}
+                      placeholder="e.g. 10,000 pcs"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Available Colors</label>
+                    <input
+                      type="text"
+                      value={productForm.colors}
+                      onChange={(e) => setProductForm({ ...productForm, colors: e.target.value })}
+                      placeholder="e.g. White, Black, Translucent, Custom Pantone"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                </div>
+
+                {/* Multi-Photo Product Gallery Uploader */}
+                <MultiImageUploader
+                  label="Product Photos & Gallery"
                   required
-                  value={productForm.shortDescription}
-                  onChange={(e) => setProductForm({ ...productForm, shortDescription: e.target.value })}
-                  placeholder="e.g. Ergonomic design with fine mist and stream dual actuation for commercial cleaning."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  images={productForm.images}
+                  onChange={(imgs) => setProductForm({ ...productForm, images: imgs })}
+                  presetImages={PRESET_IMAGES}
+                  maxImages={10}
+                  helperText="Select or drop multiple photos at once from your device. The first photo is your main cover photo, and all photos appear in the interactive product detail gallery."
                 />
-              </div>
 
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Full Detailed Description *</label>
-                <textarea
-                  required
-                  rows={3}
-                  value={productForm.description}
-                  onChange={(e) => setProductForm({ ...productForm, description: e.target.value })}
-                  placeholder="Provide comprehensive details about manufacturing specifications, chemical compatibility, and application scenarios."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-                />
-              </div>
+                {/* SEO Search Keywords */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
+                      <Tag size={13} className="text-blue-400" />
+                      <span>SEO Search Keywords</span>
+                    </label>
+                    <span className="text-[10px] text-slate-400">Comma separated</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={productForm.seoKeywords}
+                    onChange={(e) => setProductForm({ ...productForm, seoKeywords: e.target.value })}
+                    placeholder="e.g. trigger sprayer, 28/410 sprayer, plastic trigger, chemical spray nozzle, Houston packaging"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-xs"
+                  />
+                  <p className="text-[11px] text-slate-500 mt-1">Helps B2B buyers find this product on Google search and in catalog filters.</p>
+                </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Neck Size Finish</label>
-                  <input
-                    type="text"
-                    value={productForm.neckSize}
-                    onChange={(e) => setProductForm({ ...productForm, neckSize: e.target.value })}
-                    placeholder="e.g. 28/410, 24/410"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Discharge Output</label>
-                  <input
-                    type="text"
-                    value={productForm.output}
-                    onChange={(e) => setProductForm({ ...productForm, output: e.target.value })}
-                    placeholder="e.g. 1.0 - 1.2 ml/T"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Material Composition</label>
-                  <input
-                    type="text"
-                    value={productForm.material}
-                    onChange={(e) => setProductForm({ ...productForm, material: e.target.value })}
-                    placeholder="e.g. PP / PE / 304 SS"
+                  <label className="block text-slate-300 font-medium mb-1.5">Key Features (One per line)</label>
+                  <textarea
+                    rows={3}
+                    value={productForm.featuresText}
+                    onChange={(e) => setProductForm({ ...productForm, featuresText: e.target.value })}
+                    placeholder="Ergonomic shape&#10;Leak-proof sealing&#10;Customizable dip tube"
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Minimum Order Quantity (MOQ)</label>
-                  <input
-                    type="text"
-                    value={productForm.moq}
-                    onChange={(e) => setProductForm({ ...productForm, moq: e.target.value })}
-                    placeholder="e.g. 10,000 pcs"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Available Colors</label>
-                  <input
-                    type="text"
-                    value={productForm.colors}
-                    onChange={(e) => setProductForm({ ...productForm, colors: e.target.value })}
-                    placeholder="e.g. White, Black, Translucent, Custom Pantone"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              {/* Multi-Photo Product Gallery Uploader */}
-              <MultiImageUploader
-                label="Product Photos & Gallery"
-                required
-                images={productForm.images}
-                onChange={(imgs) => setProductForm({ ...productForm, images: imgs })}
-                presetImages={PRESET_IMAGES}
-                maxImages={10}
-                helperText="Select or drop multiple photos at once from your device. The first photo is your main cover photo, and all photos appear in the interactive product detail gallery."
-              />
-
-              {/* SEO Search Keywords */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
-                    <Tag size={13} className="text-blue-400" />
-                    <span>SEO Search Keywords</span>
-                  </label>
-                  <span className="text-[10px] text-slate-400">Comma separated</span>
-                </div>
-                <input
-                  type="text"
-                  value={productForm.seoKeywords}
-                  onChange={(e) => setProductForm({ ...productForm, seoKeywords: e.target.value })}
-                  placeholder="e.g. trigger sprayer, 28/410 sprayer, plastic trigger, chemical spray nozzle, Houston packaging"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 text-xs"
-                />
-                <p className="text-[11px] text-slate-500 mt-1">Helps B2B buyers find this product on Google search and in catalog filters.</p>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Key Features (One per line)</label>
-                <textarea
-                  rows={3}
-                  value={productForm.featuresText}
-                  onChange={(e) => setProductForm({ ...productForm, featuresText: e.target.value })}
-                  placeholder="Ergonomic shape&#10;Leak-proof sealing&#10;Customizable dip tube"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-blue-500"
-                />
-              </div>
-
-              <div className="pt-4 border-t border-slate-800 flex justify-end space-x-3">
+              {/* Sticky Responsive Footer */}
+              <div className="shrink-0 px-4 sm:px-7 py-3 sm:py-3.5 border-t border-slate-800 flex items-center justify-end space-x-3 bg-slate-900/95 backdrop-blur-sm">
                 <button
                   type="button"
                   onClick={() => setIsProductModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer"
+                  className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer text-xs sm:text-sm"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg shadow-blue-600/30 active:scale-95 disabled:opacity-50 cursor-pointer"
+                  className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold transition-all shadow-lg shadow-blue-600/30 active:scale-95 disabled:opacity-50 cursor-pointer text-xs sm:text-sm flex items-center gap-2"
                 >
                   {submitting ? 'Publishing...' : 'Publish Product'}
                 </button>
@@ -1089,144 +1100,155 @@ export default function Dashboard() {
 
       {/* MODAL: ADD BLOG POST */}
       {isBlogModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-              <div>
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <FileText className="text-purple-500" size={22} />
-                  <span>Write Industry Blog Post</span>
-                </h2>
-                <p className="text-xs text-slate-400 mt-1">
-                  Articles are featured on the public Industry Blog page with author and read time details.
-                </p>
+        <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92vh] sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <form onSubmit={handleBlogSubmit} className="flex flex-col h-full max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
+              {/* Sticky Responsive Header */}
+              <div className="shrink-0 px-4 sm:px-7 py-3.5 sm:py-4 border-b border-slate-800 flex items-center justify-between gap-3 bg-slate-900">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-2 bg-purple-500/20 text-purple-400 rounded-xl shrink-0">
+                    <FileText size={20} />
+                  </div>
+                  <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-bold text-white truncate">
+                      Write Industry Blog Post
+                    </h2>
+                    <p className="text-[11px] text-slate-400 truncate">
+                      Articles appear in the public blog with author and read time
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsBlogModalOpen(false)}
+                  className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer shrink-0"
+                  title="Close modal"
+                >
+                  <X size={18} />
+                </button>
               </div>
-              <button
-                onClick={() => setIsBlogModalOpen(false)}
-                className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 cursor-pointer"
-              >
-                ✕
-              </button>
-            </div>
 
-            <form onSubmit={handleBlogSubmit} className="space-y-4 text-xs sm:text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Scrollable Form Content */}
+              <div className="flex-1 overflow-y-auto px-4 sm:px-7 py-4 space-y-4 text-xs sm:text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Article Title *</label>
+                    <input
+                      type="text"
+                      required
+                      value={blogForm.title}
+                      onChange={(e) => setBlogForm({ ...blogForm, title: e.target.value })}
+                      placeholder="e.g. Next-Generation Monomaterial Lotion Pumps"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
+                    <select
+                      value={blogForm.category}
+                      onChange={(e) => setBlogForm({ ...blogForm, category: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-purple-500"
+                    >
+                      <option value="Industry Trends">Industry Trends</option>
+                      <option value="Buying Guides">Buying Guides</option>
+                      <option value="Business Tips">Business Tips</option>
+                      <option value="Factory Updates">Factory Updates</option>
+                      <option value="Sustainability">Sustainability</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Author Name</label>
+                    <input
+                      type="text"
+                      value={blogForm.author}
+                      onChange={(e) => setBlogForm({ ...blogForm, author: e.target.value })}
+                      placeholder="e.g. SG Technical Team"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-purple-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Estimated Read Time</label>
+                    <input
+                      type="text"
+                      value={blogForm.readTime}
+                      onChange={(e) => setBlogForm({ ...blogForm, readTime: e.target.value })}
+                      placeholder="e.g. 5 min read"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-purple-500"
+                    />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Article Title *</label>
-                  <input
-                    type="text"
+                  <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Excerpt *</label>
+                  <textarea
                     required
-                    value={blogForm.title}
-                    onChange={(e) => setBlogForm({ ...blogForm, title: e.target.value })}
-                    placeholder="e.g. Next-Generation Monomaterial Lotion Pumps"
+                    rows={2}
+                    value={blogForm.excerpt}
+                    onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })}
+                    placeholder="A concise 1-2 sentence overview shown in the article grid."
                     className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
                   />
                 </div>
 
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
-                  <select
-                    value={blogForm.category}
-                    onChange={(e) => setBlogForm({ ...blogForm, category: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-purple-500"
-                  >
-                    <option value="Industry Trends">Industry Trends</option>
-                    <option value="Buying Guides">Buying Guides</option>
-                    <option value="Business Tips">Business Tips</option>
-                    <option value="Factory Updates">Factory Updates</option>
-                    <option value="Sustainability">Sustainability</option>
-                  </select>
-                </div>
-              </div>
+                {/* Cover Image Uploader */}
+                <ImageUploader
+                  label="Cover Image"
+                  required
+                  value={blogForm.image}
+                  onChange={(img) => setBlogForm({ ...blogForm, image: img })}
+                  presetImages={PRESET_IMAGES}
+                  helperText="Upload an article cover photo directly from your device or select an industry preset."
+                />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Blog Article SEO Keywords */}
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Author Name</label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
+                      <Tag size={13} className="text-purple-400" />
+                      <span>SEO Keywords</span>
+                    </label>
+                    <span className="text-[10px] text-slate-400">Comma separated</span>
+                  </div>
                   <input
                     type="text"
-                    value={blogForm.author}
-                    onChange={(e) => setBlogForm({ ...blogForm, author: e.target.value })}
-                    placeholder="e.g. SG Technical Team"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-purple-500"
+                    value={blogForm.seoKeywords}
+                    onChange={(e) => setBlogForm({ ...blogForm, seoKeywords: e.target.value })}
+                    placeholder="e.g. sustainable packaging, PCR resins, cosmetic trends 2025, B2B wholesale"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-xs"
                   />
+                  <p className="text-[11px] text-slate-500 mt-1">Boosts visibility on Google and search engines for industry packaging topics.</p>
                 </div>
+
                 <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Estimated Read Time</label>
-                  <input
-                    type="text"
-                    value={blogForm.readTime}
-                    onChange={(e) => setBlogForm({ ...blogForm, readTime: e.target.value })}
-                    placeholder="e.g. 5 min read"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-purple-500"
+                  <label className="block text-slate-300 font-medium mb-1.5">Article Body Content *</label>
+                  <textarea
+                    required
+                    rows={6}
+                    value={blogForm.content}
+                    onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
+                    placeholder="Write the full body of the article here. Paragraph breaks are formatted automatically."
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 font-mono text-xs"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Excerpt *</label>
-                <textarea
-                  required
-                  rows={2}
-                  value={blogForm.excerpt}
-                  onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })}
-                  placeholder="A concise 1-2 sentence overview shown in the article grid."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
-                />
-              </div>
-
-              {/* Cover Image Uploader */}
-              <ImageUploader
-                label="Cover Image"
-                required
-                value={blogForm.image}
-                onChange={(img) => setBlogForm({ ...blogForm, image: img })}
-                presetImages={PRESET_IMAGES}
-                helperText="Upload an article cover photo directly from your device or select an industry preset."
-              />
-
-              {/* Blog Article SEO Keywords */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
-                    <Tag size={13} className="text-purple-400" />
-                    <span>SEO Keywords</span>
-                  </label>
-                  <span className="text-[10px] text-slate-400">Comma separated</span>
-                </div>
-                <input
-                  type="text"
-                  value={blogForm.seoKeywords}
-                  onChange={(e) => setBlogForm({ ...blogForm, seoKeywords: e.target.value })}
-                  placeholder="e.g. sustainable packaging, PCR resins, cosmetic trends 2025, B2B wholesale"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-xs"
-                />
-                <p className="text-[11px] text-slate-500 mt-1">Boosts visibility on Google and search engines for industry packaging topics.</p>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Article Body Content *</label>
-                <textarea
-                  required
-                  rows={6}
-                  value={blogForm.content}
-                  onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })}
-                  placeholder="Write the full body of the article here. Paragraph breaks are formatted automatically."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 font-mono text-xs"
-                />
-              </div>
-
-              <div className="pt-4 border-t border-slate-800 flex justify-end space-x-3">
+              {/* Sticky Responsive Footer */}
+              <div className="shrink-0 px-4 sm:px-7 py-3 sm:py-3.5 border-t border-slate-800 flex items-center justify-end space-x-3 bg-slate-900/95 backdrop-blur-sm">
                 <button
                   type="button"
                   onClick={() => setIsBlogModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer"
+                  className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer text-xs sm:text-sm"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition-all shadow-lg shadow-purple-600/30 active:scale-95 disabled:opacity-50 cursor-pointer"
+                  className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold transition-all shadow-lg shadow-purple-600/30 active:scale-95 disabled:opacity-50 cursor-pointer text-xs sm:text-sm flex items-center gap-2"
                 >
                   {submitting ? 'Publishing...' : 'Publish Article'}
                 </button>
@@ -1238,284 +1260,288 @@ export default function Dashboard() {
 
       {/* MODAL: EDIT PRODUCT */}
       {isEditProductModalOpen && editingProduct && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="p-2 bg-amber-500/20 text-amber-400 rounded-xl">
+        <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92vh] sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <form onSubmit={handleUpdateProductSubmit} className="flex flex-col h-full max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
+              {/* Sticky Responsive Header */}
+              <div className="shrink-0 px-4 sm:px-7 py-3.5 sm:py-4 border-b border-slate-800 flex items-center justify-between gap-3 bg-slate-900">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-2 bg-amber-500/20 text-amber-400 rounded-xl shrink-0">
                     <Pencil size={20} />
                   </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                      <span>Edit Product</span>
-                      <span className="text-xs font-mono text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">
+                  <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2 truncate">
+                      <span className="truncate">Edit Product</span>
+                      <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full shrink-0">
                         {editingProduct.id}
                       </span>
                     </h2>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      Update specifications, marketing copy, images, and catalog features. Changes reflect live on the storefront immediately.
+                    <p className="text-[11px] text-slate-400 truncate">
+                      Updates live on storefront immediately
                     </p>
                   </div>
                 </div>
-              </div>
-              <button
-                onClick={() => {
-                  setIsEditProductModalOpen(false);
-                  setEditingProduct(null);
-                }}
-                className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
-                title="Close"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <form onSubmit={handleUpdateProductSubmit} className="space-y-4 text-xs sm:text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Product Name *</label>
-                  <input
-                    type="text"
-                    required
-                    value={editProductForm.name}
-                    onChange={(e) => setEditProductForm({ ...editProductForm, name: e.target.value })}
-                    placeholder="e.g. 28/410 High-Output Chemical Trigger Sprayer"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
-                  <select
-                    value={editProductForm.category}
-                    onChange={(e) => setEditProductForm({ ...editProductForm, category: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
-                  >
-                    {CATEGORIES.map(cat => (
-                      <option key={cat.id} value={cat.name}>{cat.name}</option>
-                    ))}
-                    <option value="Custom Packaging">Custom Packaging</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Tagline *</label>
-                <input
-                  type="text"
-                  required
-                  value={editProductForm.shortDescription}
-                  onChange={(e) => setEditProductForm({ ...editProductForm, shortDescription: e.target.value })}
-                  placeholder="e.g. Ergonomic design with fine mist and stream dual actuation for commercial cleaning."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Full Detailed Description *</label>
-                <textarea
-                  required
-                  rows={3}
-                  value={editProductForm.description}
-                  onChange={(e) => setEditProductForm({ ...editProductForm, description: e.target.value })}
-                  placeholder="Provide comprehensive details about manufacturing specifications, chemical compatibility, and application scenarios."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              {/* Standard Technical Specifications */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Neck Size Finish</label>
-                  <input
-                    type="text"
-                    value={editProductForm.neckSize}
-                    onChange={(e) => setEditProductForm({ ...editProductForm, neckSize: e.target.value })}
-                    placeholder="e.g. 28/410, 24/410"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Discharge Output</label>
-                  <input
-                    type="text"
-                    value={editProductForm.output}
-                    onChange={(e) => setEditProductForm({ ...editProductForm, output: e.target.value })}
-                    placeholder="e.g. 1.0 - 1.2 ml/T"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Material Composition</label>
-                  <input
-                    type="text"
-                    value={editProductForm.material}
-                    onChange={(e) => setEditProductForm({ ...editProductForm, material: e.target.value })}
-                    placeholder="e.g. PP / PE / 304 SS"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-              </div>
-
-              {/* Additional Custom Specifications */}
-              <div className="p-3 bg-slate-950/60 border border-slate-800 rounded-2xl space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                    <Layers size={13} className="text-amber-400" />
-                    <span>Custom Specifications & Engineering Parameters</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEditProductForm({
-                        ...editProductForm,
-                        extraSpecs: [...editProductForm.extraSpecs, { key: '', value: '' }]
-                      });
-                    }}
-                    className="text-[11px] font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-1 rounded-lg border border-amber-500/30 transition-colors flex items-center gap-1 cursor-pointer"
-                  >
-                    <Plus size={12} />
-                    <span>Add Custom Spec</span>
-                  </button>
-                </div>
-
-                {editProductForm.extraSpecs.length === 0 ? (
-                  <p className="text-[11px] text-slate-500">No additional custom specs added. Click &quot;Add Custom Spec&quot; to define custom parameters (e.g., Tube Length, Gasket Type, Spray Pattern).</p>
-                ) : (
-                  <div className="space-y-2">
-                    {editProductForm.extraSpecs.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <input
-                          type="text"
-                          placeholder="Spec Name (e.g. Tube Length)"
-                          value={item.key}
-                          onChange={(e) => {
-                            const updated = [...editProductForm.extraSpecs];
-                            updated[idx].key = e.target.value;
-                            setEditProductForm({ ...editProductForm, extraSpecs: updated });
-                          }}
-                          className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                        />
-                        <input
-                          type="text"
-                          placeholder="Value (e.g. 240mm with filter)"
-                          value={item.value}
-                          onChange={(e) => {
-                            const updated = [...editProductForm.extraSpecs];
-                            updated[idx].value = e.target.value;
-                            setEditProductForm({ ...editProductForm, extraSpecs: updated });
-                          }}
-                          className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const updated = editProductForm.extraSpecs.filter((_, i) => i !== idx);
-                            setEditProductForm({ ...editProductForm, extraSpecs: updated });
-                          }}
-                          className="p-1.5 text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer"
-                          title="Remove specification"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Minimum Order Quantity (MOQ)</label>
-                  <input
-                    type="text"
-                    value={editProductForm.moq}
-                    onChange={(e) => setEditProductForm({ ...editProductForm, moq: e.target.value })}
-                    placeholder="e.g. 10,000 pcs"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Packaging Details</label>
-                  <input
-                    type="text"
-                    value={editProductForm.packagingDetails}
-                    onChange={(e) => setEditProductForm({ ...editProductForm, packagingDetails: e.target.value })}
-                    placeholder="e.g. 500 pcs/carton, 57x38x42 cm"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Available Colors</label>
-                <input
-                  type="text"
-                  value={editProductForm.colors}
-                  onChange={(e) => setEditProductForm({ ...editProductForm, colors: e.target.value })}
-                  placeholder="e.g. White, Black, Translucent, Custom Pantone"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              {/* Multi-Photo Product Gallery Uploader */}
-              <MultiImageUploader
-                label="Product Photos & Gallery"
-                required
-                images={editProductForm.images}
-                onChange={(imgs) => setEditProductForm({ ...editProductForm, images: imgs })}
-                presetImages={PRESET_IMAGES}
-                maxImages={10}
-                helperText="Upload or select product images from your device. The first photo is your main hero image; additional images form the product detail gallery."
-              />
-
-              {/* SEO Search Keywords */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
-                    <Tag size={13} className="text-amber-400" />
-                    <span>SEO Search Keywords</span>
-                  </label>
-                  <span className="text-[10px] text-slate-400">Comma separated</span>
-                </div>
-                <input
-                  type="text"
-                  value={editProductForm.seoKeywords}
-                  onChange={(e) => setEditProductForm({ ...editProductForm, seoKeywords: e.target.value })}
-                  placeholder="e.g. trigger sprayer, 28/410 sprayer, plastic trigger, chemical spray nozzle, Houston packaging"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs"
-                />
-                <p className="text-[11px] text-slate-500 mt-1">Helps B2B buyers find this product on Google search and in catalog filters.</p>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Key Features (One per line)</label>
-                <textarea
-                  rows={3}
-                  value={editProductForm.featuresText}
-                  onChange={(e) => setEditProductForm({ ...editProductForm, featuresText: e.target.value })}
-                  placeholder="Ergonomic shape&#10;Leak-proof sealing&#10;Customizable dip tube"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              <div className="pt-4 border-t border-slate-800 flex justify-end space-x-3">
                 <button
                   type="button"
                   onClick={() => {
                     setIsEditProductModalOpen(false);
                     setEditingProduct(null);
                   }}
-                  className="px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer"
+                  className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer shrink-0"
+                  title="Close modal"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Scrollable Form Content */}
+              <div className="flex-1 overflow-y-auto px-4 sm:px-7 py-4 space-y-4 text-xs sm:text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Product Name *</label>
+                    <input
+                      type="text"
+                      required
+                      value={editProductForm.name}
+                      onChange={(e) => setEditProductForm({ ...editProductForm, name: e.target.value })}
+                      placeholder="e.g. 28/410 High-Output Chemical Trigger Sprayer"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
+                    <select
+                      value={editProductForm.category}
+                      onChange={(e) => setEditProductForm({ ...editProductForm, category: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
+                    >
+                      {CATEGORIES.map(cat => (
+                        <option key={cat.id} value={cat.name}>{cat.name}</option>
+                      ))}
+                      <option value="Custom Packaging">Custom Packaging</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Tagline *</label>
+                  <input
+                    type="text"
+                    required
+                    value={editProductForm.shortDescription}
+                    onChange={(e) => setEditProductForm({ ...editProductForm, shortDescription: e.target.value })}
+                    placeholder="e.g. Ergonomic design with fine mist and stream dual actuation for commercial cleaning."
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-medium mb-1.5">Full Detailed Description *</label>
+                  <textarea
+                    required
+                    rows={3}
+                    value={editProductForm.description}
+                    onChange={(e) => setEditProductForm({ ...editProductForm, description: e.target.value })}
+                    placeholder="Provide comprehensive details about manufacturing specifications, chemical compatibility, and application scenarios."
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+
+                {/* Standard Technical Specifications */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Neck Size Finish</label>
+                    <input
+                      type="text"
+                      value={editProductForm.neckSize}
+                      onChange={(e) => setEditProductForm({ ...editProductForm, neckSize: e.target.value })}
+                      placeholder="e.g. 28/410, 24/410"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Discharge Output</label>
+                    <input
+                      type="text"
+                      value={editProductForm.output}
+                      onChange={(e) => setEditProductForm({ ...editProductForm, output: e.target.value })}
+                      placeholder="e.g. 1.0 - 1.2 ml/T"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Material Composition</label>
+                    <input
+                      type="text"
+                      value={editProductForm.material}
+                      onChange={(e) => setEditProductForm({ ...editProductForm, material: e.target.value })}
+                      placeholder="e.g. PP / PE / 304 SS"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                </div>
+
+                {/* Additional Custom Specifications */}
+                <div className="p-3 bg-slate-950/60 border border-slate-800 rounded-2xl space-y-2.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                      <Layers size={13} className="text-amber-400" />
+                      <span>Custom Specifications & Parameters</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditProductForm({
+                          ...editProductForm,
+                          extraSpecs: [...editProductForm.extraSpecs, { key: '', value: '' }]
+                        });
+                      }}
+                      className="text-[11px] font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-1 rounded-lg border border-amber-500/30 transition-colors flex items-center gap-1 cursor-pointer"
+                    >
+                      <Plus size={12} />
+                      <span>Add Spec</span>
+                    </button>
+                  </div>
+
+                  {editProductForm.extraSpecs.length === 0 ? (
+                    <p className="text-[11px] text-slate-500">No custom specs defined yet. Click &quot;Add Spec&quot; to configure custom parameters (e.g., Tube Length, Gasket Type).</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {editProductForm.extraSpecs.map((item, idx) => (
+                        <div key={idx} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-slate-900/40 sm:bg-transparent p-2 sm:p-0 rounded-xl">
+                          <input
+                            type="text"
+                            placeholder="Parameter Name (e.g. Tube Length)"
+                            value={item.key}
+                            onChange={(e) => {
+                              const updated = [...editProductForm.extraSpecs];
+                              updated[idx].key = e.target.value;
+                              setEditProductForm({ ...editProductForm, extraSpecs: updated });
+                            }}
+                            className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Value (e.g. 240mm with filter)"
+                            value={item.value}
+                            onChange={(e) => {
+                              const updated = [...editProductForm.extraSpecs];
+                              updated[idx].value = e.target.value;
+                              setEditProductForm({ ...editProductForm, extraSpecs: updated });
+                            }}
+                            className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const updated = editProductForm.extraSpecs.filter((_, i) => i !== idx);
+                              setEditProductForm({ ...editProductForm, extraSpecs: updated });
+                            }}
+                            className="p-1.5 self-end sm:self-center text-slate-500 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer"
+                            title="Remove specification"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Minimum Order Quantity (MOQ)</label>
+                    <input
+                      type="text"
+                      value={editProductForm.moq}
+                      onChange={(e) => setEditProductForm({ ...editProductForm, moq: e.target.value })}
+                      placeholder="e.g. 10,000 pcs"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Packaging Details</label>
+                    <input
+                      type="text"
+                      value={editProductForm.packagingDetails}
+                      onChange={(e) => setEditProductForm({ ...editProductForm, packagingDetails: e.target.value })}
+                      placeholder="e.g. 500 pcs/carton, 57x38x42 cm"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-medium mb-1.5">Available Colors</label>
+                  <input
+                    type="text"
+                    value={editProductForm.colors}
+                    onChange={(e) => setEditProductForm({ ...editProductForm, colors: e.target.value })}
+                    placeholder="e.g. White, Black, Translucent, Custom Pantone"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+
+                {/* Multi-Photo Product Gallery Uploader */}
+                <MultiImageUploader
+                  label="Product Photos & Gallery"
+                  required
+                  images={editProductForm.images}
+                  onChange={(imgs) => setEditProductForm({ ...editProductForm, images: imgs })}
+                  presetImages={PRESET_IMAGES}
+                  maxImages={10}
+                  helperText="Upload or select product images from your device. The first photo is your main hero image; additional images form the product detail gallery."
+                />
+
+                {/* SEO Search Keywords */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
+                      <Tag size={13} className="text-amber-400" />
+                      <span>SEO Search Keywords</span>
+                    </label>
+                    <span className="text-[10px] text-slate-400">Comma separated</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={editProductForm.seoKeywords}
+                    onChange={(e) => setEditProductForm({ ...editProductForm, seoKeywords: e.target.value })}
+                    placeholder="e.g. trigger sprayer, 28/410 sprayer, plastic trigger, chemical spray nozzle, Houston packaging"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs"
+                  />
+                  <p className="text-[11px] text-slate-500 mt-1">Helps B2B buyers find this product on Google search and in catalog filters.</p>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-medium mb-1.5">Key Features (One per line)</label>
+                  <textarea
+                    rows={3}
+                    value={editProductForm.featuresText}
+                    onChange={(e) => setEditProductForm({ ...editProductForm, featuresText: e.target.value })}
+                    placeholder="Ergonomic shape&#10;Leak-proof sealing&#10;Customizable dip tube"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-white focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+              </div>
+
+              {/* Sticky Responsive Footer */}
+              <div className="shrink-0 px-4 sm:px-7 py-3 sm:py-3.5 border-t border-slate-800 flex items-center justify-end space-x-3 bg-slate-900/95 backdrop-blur-sm">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditProductModalOpen(false);
+                    setEditingProduct(null);
+                  }}
+                  className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer text-xs sm:text-sm"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-lg shadow-amber-500/20 active:scale-95 disabled:opacity-50 cursor-pointer flex items-center gap-2"
+                  className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-lg shadow-amber-500/20 active:scale-95 disabled:opacity-50 cursor-pointer text-xs sm:text-sm flex items-center gap-2"
                 >
                   <Pencil size={15} />
                   <span>{submitting ? 'Saving Changes...' : 'Save Product Changes'}</span>
@@ -1528,160 +1554,164 @@ export default function Dashboard() {
 
       {/* MODAL: EDIT BLOG POST */}
       {isEditBlogModalOpen && editingPost && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-              <div>
-                <div className="flex items-center gap-2">
-                  <div className="p-2 bg-amber-500/20 text-amber-400 rounded-xl">
+        <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[92vh] sm:max-h-[88vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <form onSubmit={handleUpdateBlogSubmit} className="flex flex-col h-full max-h-[92vh] sm:max-h-[88vh] overflow-hidden">
+              {/* Sticky Responsive Header */}
+              <div className="shrink-0 px-4 sm:px-7 py-3.5 sm:py-4 border-b border-slate-800 flex items-center justify-between gap-3 bg-slate-900">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="p-2 bg-amber-500/20 text-amber-400 rounded-xl shrink-0">
                     <Pencil size={20} />
                   </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                      <span>Edit Blog Article</span>
-                      <span className="text-xs font-mono text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full">
+                  <div className="min-w-0">
+                    <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2 truncate">
+                      <span className="truncate">Edit Blog Article</span>
+                      <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-full shrink-0">
                         {editingPost.id}
                       </span>
                     </h2>
-                    <p className="text-xs text-slate-400 mt-0.5">
-                      Modify article headline, category, excerpt, cover photo, content, and SEO metadata.
+                    <p className="text-[11px] text-slate-400 mt-0.5 truncate">
+                      Modify article headline, category, excerpt, cover photo, content, and SEO
                     </p>
                   </div>
                 </div>
-              </div>
-              <button
-                onClick={() => {
-                  setIsEditBlogModalOpen(false);
-                  setEditingPost(null);
-                }}
-                className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer"
-                title="Close"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <form onSubmit={handleUpdateBlogSubmit} className="space-y-4 text-xs sm:text-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Article Title *</label>
-                  <input
-                    type="text"
-                    required
-                    value={editBlogForm.title}
-                    onChange={(e) => setEditBlogForm({ ...editBlogForm, title: e.target.value })}
-                    placeholder="e.g. Next-Generation Monomaterial Lotion Pumps"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
-                  <select
-                    value={editBlogForm.category}
-                    onChange={(e) => setEditBlogForm({ ...editBlogForm, category: e.target.value })}
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
-                  >
-                    <option value="Industry Trends">Industry Trends</option>
-                    <option value="Buying Guides">Buying Guides</option>
-                    <option value="Business Tips">Business Tips</option>
-                    <option value="Factory Updates">Factory Updates</option>
-                    <option value="Sustainability">Sustainability</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Author Name</label>
-                  <input
-                    type="text"
-                    value={editBlogForm.author}
-                    onChange={(e) => setEditBlogForm({ ...editBlogForm, author: e.target.value })}
-                    placeholder="e.g. SG Technical Team"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-300 font-medium mb-1.5">Estimated Read Time</label>
-                  <input
-                    type="text"
-                    value={editBlogForm.readTime}
-                    onChange={(e) => setEditBlogForm({ ...editBlogForm, readTime: e.target.value })}
-                    placeholder="e.g. 5 min read"
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Excerpt *</label>
-                <textarea
-                  required
-                  rows={2}
-                  value={editBlogForm.excerpt}
-                  onChange={(e) => setEditBlogForm({ ...editBlogForm, excerpt: e.target.value })}
-                  placeholder="A concise 1-2 sentence overview shown in the article grid."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
-                />
-              </div>
-
-              {/* Cover Image Uploader */}
-              <ImageUploader
-                label="Cover Image"
-                required
-                value={editBlogForm.image}
-                onChange={(img) => setEditBlogForm({ ...editBlogForm, image: img })}
-                presetImages={PRESET_IMAGES}
-                helperText="Upload an article cover photo directly from your device or select an industry preset."
-              />
-
-              {/* Blog Article SEO Keywords */}
-              <div>
-                <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
-                    <Tag size={13} className="text-amber-400" />
-                    <span>SEO Keywords</span>
-                  </label>
-                  <span className="text-[10px] text-slate-400">Comma separated</span>
-                </div>
-                <input
-                  type="text"
-                  value={editBlogForm.seoKeywords}
-                  onChange={(e) => setEditBlogForm({ ...editBlogForm, seoKeywords: e.target.value })}
-                  placeholder="e.g. sustainable packaging, PCR resins, cosmetic trends 2025, B2B wholesale"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs"
-                />
-                <p className="text-[11px] text-slate-500 mt-1">Boosts visibility on Google and search engines for industry packaging topics.</p>
-              </div>
-
-              <div>
-                <label className="block text-slate-300 font-medium mb-1.5">Article Body Content *</label>
-                <textarea
-                  required
-                  rows={8}
-                  value={editBlogForm.content}
-                  onChange={(e) => setEditBlogForm({ ...editBlogForm, content: e.target.value })}
-                  placeholder="Write the full body of the article here. Paragraph breaks are formatted automatically."
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-mono text-xs"
-                />
-              </div>
-
-              <div className="pt-4 border-t border-slate-800 flex justify-end space-x-3">
                 <button
                   type="button"
                   onClick={() => {
                     setIsEditBlogModalOpen(false);
                     setEditingPost(null);
                   }}
-                  className="px-5 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer"
+                  className="text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer shrink-0"
+                  title="Close modal"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Scrollable Form Content */}
+              <div className="flex-1 overflow-y-auto px-4 sm:px-7 py-4 space-y-4 text-xs sm:text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Article Title *</label>
+                    <input
+                      type="text"
+                      required
+                      value={editBlogForm.title}
+                      onChange={(e) => setEditBlogForm({ ...editBlogForm, title: e.target.value })}
+                      placeholder="e.g. Next-Generation Monomaterial Lotion Pumps"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Category *</label>
+                    <select
+                      value={editBlogForm.category}
+                      onChange={(e) => setEditBlogForm({ ...editBlogForm, category: e.target.value })}
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
+                    >
+                      <option value="Industry Trends">Industry Trends</option>
+                      <option value="Buying Guides">Buying Guides</option>
+                      <option value="Business Tips">Business Tips</option>
+                      <option value="Factory Updates">Factory Updates</option>
+                      <option value="Sustainability">Sustainability</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Author Name</label>
+                    <input
+                      type="text"
+                      value={editBlogForm.author}
+                      onChange={(e) => setEditBlogForm({ ...editBlogForm, author: e.target.value })}
+                      placeholder="e.g. SG Technical Team"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-slate-300 font-medium mb-1.5">Estimated Read Time</label>
+                    <input
+                      type="text"
+                      value={editBlogForm.readTime}
+                      onChange={(e) => setEditBlogForm({ ...editBlogForm, readTime: e.target.value })}
+                      placeholder="e.g. 5 min read"
+                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-medium mb-1.5">Short Summary / Excerpt *</label>
+                  <textarea
+                    required
+                    rows={2}
+                    value={editBlogForm.excerpt}
+                    onChange={(e) => setEditBlogForm({ ...editBlogForm, excerpt: e.target.value })}
+                    placeholder="A concise 1-2 sentence overview shown in the article grid."
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+
+                {/* Cover Image Uploader */}
+                <ImageUploader
+                  label="Cover Image"
+                  required
+                  value={editBlogForm.image}
+                  onChange={(img) => setEditBlogForm({ ...editBlogForm, image: img })}
+                  presetImages={PRESET_IMAGES}
+                  helperText="Upload an article cover photo directly from your device or select an industry preset."
+                />
+
+                {/* Blog Article SEO Keywords */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-slate-300 font-semibold text-xs flex items-center gap-1.5">
+                      <Tag size={13} className="text-amber-400" />
+                      <span>SEO Keywords</span>
+                    </label>
+                    <span className="text-[10px] text-slate-400">Comma separated</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={editBlogForm.seoKeywords}
+                    onChange={(e) => setEditBlogForm({ ...editBlogForm, seoKeywords: e.target.value })}
+                    placeholder="e.g. sustainable packaging, PCR resins, cosmetic trends 2025, B2B wholesale"
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 text-xs"
+                  />
+                  <p className="text-[11px] text-slate-500 mt-1">Boosts visibility on Google and search engines for industry packaging topics.</p>
+                </div>
+
+                <div>
+                  <label className="block text-slate-300 font-medium mb-1.5">Article Body Content *</label>
+                  <textarea
+                    required
+                    rows={6}
+                    value={editBlogForm.content}
+                    onChange={(e) => setEditBlogForm({ ...editBlogForm, content: e.target.value })}
+                    placeholder="Write the full body of the article here. Paragraph breaks are formatted automatically."
+                    className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 font-mono text-xs"
+                  />
+                </div>
+              </div>
+
+              {/* Sticky Responsive Footer */}
+              <div className="shrink-0 px-4 sm:px-7 py-3 sm:py-3.5 border-t border-slate-800 flex items-center justify-end space-x-3 bg-slate-900/95 backdrop-blur-sm">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsEditBlogModalOpen(false);
+                    setEditingPost(null);
+                  }}
+                  className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold transition-colors cursor-pointer text-xs sm:text-sm"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-lg shadow-amber-500/20 active:scale-95 disabled:opacity-50 cursor-pointer flex items-center gap-2"
+                  className="px-5 py-2 sm:px-6 sm:py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-lg shadow-amber-500/20 active:scale-95 disabled:opacity-50 cursor-pointer text-xs sm:text-sm flex items-center gap-2"
                 >
                   <Pencil size={15} />
                   <span>{submitting ? 'Saving Changes...' : 'Save Article Changes'}</span>
