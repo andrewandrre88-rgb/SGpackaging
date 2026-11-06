@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import WhatsAppIcon from '../WhatsAppIcon';
 import SGLogo from '../SGLogo';
+import LanguageSwitcher from '../LanguageSwitcher';
+import { useLanguage } from '../../context/LanguageContext';
 
 export default function Footer() {
+  const { t, translateCategory } = useLanguage();
+
   return (
     <footer className="bg-slate-900 text-white pt-16 pb-8">
       <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 2xl:px-12">
@@ -22,57 +26,64 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-slate-400 mb-8 leading-relaxed pr-4">
-              Premium packaging solutions manufactured by verified Chinese factories for global B2B clients.
+              {t('footer.companyDesc')}
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+            <div className="flex space-x-4 rtl:space-x-reverse mb-6">
+              <a href="#" aria-label="LinkedIn" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
                 <Linkedin size={14} />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+              <a href="#" aria-label="Facebook" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
                 <Facebook size={14} />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+              <a href="#" aria-label="Twitter" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
                 <Twitter size={14} />
               </a>
-              <a href="#" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
+              <a href="#" aria-label="Instagram" className="w-8 h-8 rounded-full border border-slate-700 flex items-center justify-center text-slate-400 hover:text-white hover:border-slate-500 transition-colors">
                 <Instagram size={14} />
               </a>
+            </div>
+
+            {/* Language Switcher in Footer */}
+            <div>
+              <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-2">{t('nav.language')}</p>
+              <LanguageSwitcher variant="dark" />
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">Quick Links</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{t('footer.quickLinks')}</p>
             <ul className="space-y-3">
-              <li><Link to="/about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">About Us</Link></li>
-              <li><Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Products</Link></li>
-              <li><Link to="/factory" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Our Factory</Link></li>
-              <li><Link to="/gallery" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Gallery</Link></li>
-              <li><Link to="/blog" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Blog</Link></li>
+              <li><Link to="/about" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.about')}</Link></li>
+              <li><Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.products')}</Link></li>
+              <li><Link to="/factory" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.factory')}</Link></li>
+              <li><Link to="/gallery" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.gallery')}</Link></li>
+              <li><Link to="/blog" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.blog')}</Link></li>
+              <li><Link to="/contact" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.contact')}</Link></li>
             </ul>
           </div>
 
           {/* Categories */}
           <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">Categories</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{t('footer.productCategories')}</p>
             <ul className="space-y-3">
-              <li><Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Trigger Sprayers</Link></li>
-              <li><Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Lotion Pumps</Link></li>
-              <li><Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Fine Mist Sprayers</Link></li>
-              <li><Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Cosmetic Packaging</Link></li>
-              <li><Link to="/products" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">Plastic Bottles</Link></li>
+              <li><Link to="/products?category=Trigger+Sprayers" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{translateCategory('Trigger Sprayers')}</Link></li>
+              <li><Link to="/products?category=Lotion+Pumps" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{translateCategory('Lotion Pumps')}</Link></li>
+              <li><Link to="/products?category=Fine+Mist+Sprayers" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{translateCategory('Fine Mist Sprayers')}</Link></li>
+              <li><Link to="/products?category=Cosmetic+Packaging" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{translateCategory('Cosmetic Packaging')}</Link></li>
+              <li><Link to="/products?category=Plastic+Bottles" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{translateCategory('Plastic Bottles')}</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">US Headquarters</p>
-            <p className="text-sm font-medium text-slate-300 mb-6">Houston, Texas, USA</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{t('contact.houstonOffice')}</p>
+            <p className="text-sm font-medium text-slate-300 mb-6">{t('footer.houstonLocation')}</p>
             
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">Factory HQ</p>
-            <p className="text-sm font-medium text-slate-300 mb-6">Yuyao, Ningbo, Zhejiang Province, China</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{t('contact.chinaOffice')}</p>
+            <p className="text-sm font-medium text-slate-300 mb-6">{t('footer.yuyaoLocation')}</p>
             
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">Inquiry Support</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{t('footer.inquirySupport')}</p>
             <p className="text-sm font-medium text-slate-300 mb-2">sales@sgpackaging.com</p>
             <a
               href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
@@ -80,21 +91,21 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#25D366] hover:text-emerald-400 transition-colors mb-6"
             >
-              <WhatsAppIcon className="w-4 h-4 fill-[#25D366]" />
+              <WhatsAppIcon className="w-4 h-4 fill-[#25D366] shrink-0" />
               <span>WhatsApp: +86 18567413851</span>
             </a>
             
-            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">Production Lead Time</p>
-            <p className="text-sm font-medium text-slate-300">25-30 Days Average</p>
+            <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{t('nav.leadTime')}</p>
+            <p className="text-sm font-medium text-slate-300">15–25 Days</p>
           </div>
         </div>
 
         <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs font-medium text-slate-500">
-          <p>&copy; {new Date().getFullYear()} SG Packaging (Sino Gate). All rights reserved.</p>
-          <div className="flex space-x-6 mt-4 md:mt-0 items-center">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <Link to="/admin" className="text-slate-400 hover:text-blue-400 transition-colors">Admin Dashboard</Link>
+          <p>&copy; {new Date().getFullYear()} {t('footer.copyright')}</p>
+          <div className="flex space-x-6 rtl:space-x-reverse mt-4 md:mt-0 items-center">
+            <Link to="/about" className="hover:text-white transition-colors">{t('nav.about')}</Link>
+            <Link to="/contact" className="hover:text-white transition-colors">{t('nav.contact')}</Link>
+            <Link to="/admin" className="text-slate-400 hover:text-blue-400 transition-colors">{t('nav.admin')}</Link>
           </div>
         </div>
       </div>

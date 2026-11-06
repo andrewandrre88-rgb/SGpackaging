@@ -4,10 +4,12 @@ import { useSEO } from '../lib/useSEO';
 import { ArrowLeft, Mail, Download, Tag } from 'lucide-react';
 import { useState } from 'react';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const { products, loading } = useProducts();
+  const { t, translateCategory, translateSpecKey, isArabic } = useLanguage();
   const product = products.find(p => p.id === id);
   const [activeImage, setActiveImage] = useState(0);
 
@@ -21,8 +23,8 @@ export default function ProductDetail() {
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-32 text-center">
-        <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-4">Product Not Found</h2>
-        <Link to="/products" className="text-blue-600 font-bold hover:underline">Return to Products</Link>
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900 mb-4">{t('products.noProducts')}</h2>
+        <Link to="/products" className="text-blue-600 font-bold hover:underline">{isArabic ? 'العودة إلى الكتالوج' : 'Return to Products'}</Link>
       </div>
     );
   }
@@ -32,8 +34,9 @@ export default function ProductDetail() {
       {/* Breadcrumb */}
       <div className="bg-slate-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-6">
-          <Link to="/products" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 flex items-center transition-colors">
-            <ArrowLeft size={14} className="mr-2" /> Back to Catalog
+          <Link to="/products" className="text-xs font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 flex items-center transition-colors gap-2">
+            <ArrowLeft size={14} className="rtl:rotate-180 shrink-0" />
+            <span>{isArabic ? 'العودة إلى كتالوج المنتجات' : 'Back to Catalog'}</span>
           </Link>
         </div>
       </div>
@@ -84,7 +87,7 @@ export default function ProductDetail() {
           {/* Product Info & Purchase Guidance */}
           <div className="lg:col-span-6 2xl:col-span-7 flex flex-col">
             <div className="mb-4 inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold uppercase tracking-wider rounded-full w-max border border-blue-200/60">
-              <span>{product.category}</span>
+              <span>{translateCategory(product.category)}</span>
               <span className="text-slate-400">•</span>
               <span className="text-slate-600">Model: {product.id.toUpperCase()}</span>
             </div>
@@ -100,15 +103,15 @@ export default function ProductDetail() {
             {/* Quick Metrics Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Minimum Order Qty</span>
+                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">{t('products.moq')}</span>
                 <span className="font-bold text-slate-900 text-base sm:text-lg">{product.moq}</span>
               </div>
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Neck Dimension</span>
-                <span className="font-bold text-slate-900 text-base sm:text-lg">{product.specifications['Neck Size'] || 'Custom'}</span>
+                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">{t('products.neckSize')}</span>
+                <span className="font-bold text-slate-900 text-base sm:text-lg">{product.specifications['Neck Size'] || (isArabic ? 'حسب الطلب' : 'Custom')}</span>
               </div>
               <div className="col-span-2 sm:col-span-1 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Standard Output</span>
+                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">{t('products.output')}</span>
                 <span className="font-bold text-slate-900 text-base sm:text-lg">{product.specifications['Output'] || '1.0 - 2.0 ml'}</span>
               </div>
             </div>
@@ -116,7 +119,7 @@ export default function ProductDetail() {
             {/* Colors and Packaging */}
             <div className="space-y-4 mb-8">
               <div className="bg-white p-4 rounded-2xl border border-slate-200">
-                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-2">Color Options</span>
+                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-2">{t('products.colors')}</span>
                 <div className="flex flex-wrap gap-2">
                   {product.colors.map((c, i) => (
                     <span key={i} className="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-lg">
@@ -124,13 +127,13 @@ export default function ProductDetail() {
                     </span>
                   ))}
                   <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-semibold rounded-lg border border-blue-200">
-                    Pantone Custom Matching Available
+                    {isArabic ? 'مطابقة درجات ألوان Pantone متوفرة' : 'Pantone Custom Matching Available'}
                   </span>
                 </div>
               </div>
 
               <div className="bg-white p-4 rounded-2xl border border-slate-200">
-                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">Export Packaging Details</span>
+                <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-1">{t('products.packagingDetails')}</span>
                 <span className="font-medium text-slate-700 text-sm">{product.packagingDetails}</span>
               </div>
 
@@ -139,7 +142,7 @@ export default function ProductDetail() {
                 <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200">
                   <span className="block text-[10px] uppercase tracking-widest font-bold text-slate-400 mb-2 flex items-center gap-1.5">
                     <Tag size={12} className="text-blue-500" />
-                    <span>Search & Industry Tags</span>
+                    <span>{isArabic ? 'الكلمات المفتاحية والتصنيف' : 'Search & Industry Tags'}</span>
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {product.seoKeywords.split(',').map((kw, i) => (
@@ -160,7 +163,7 @@ export default function ProductDetail() {
                 rel="noopener noreferrer"
                 className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-xl font-bold transition-all shadow-md active:scale-95 text-sm sm:text-base"
               >
-                <WhatsAppIcon className="w-5 h-5 fill-white" />
+                <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
                 <span>Chat on WhatsApp (+86 18567413851)</span>
               </a>
               <Link
@@ -168,7 +171,7 @@ export default function ProductDetail() {
                 className="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-blue-600 transition-colors shadow text-sm sm:text-base"
               >
                 <Mail size={18} />
-                <span>Request Quotation</span>
+                <span>{t('nav.requestQuote')}</span>
               </Link>
             </div>
           </div>
@@ -177,11 +180,11 @@ export default function ProductDetail() {
         {/* Detailed Specs and Features Section */}
         <div className="mt-16 sm:mt-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 pt-12 border-t border-slate-200">
           <div>
-            <h3 className="text-2xl font-bold tracking-tight text-slate-900 mb-6">Key Engineering Features</h3>
+            <h3 className="text-2xl font-bold tracking-tight text-slate-900 mb-6">{t('products.features')}</h3>
             <ul className="space-y-3.5">
               {product.features.map((feature, idx) => (
                 <li key={idx} className="flex items-start bg-slate-50 p-4 rounded-2xl border border-slate-100 hover:border-blue-200 transition-colors">
-                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-blue-100 text-blue-700 mr-3.5 shrink-0 text-xs font-bold">✓</span>
+                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-lg bg-blue-100 text-blue-700 mr-3.5 rtl:mr-0 rtl:ml-3.5 shrink-0 text-xs font-bold">✓</span>
                   <span className="text-slate-700 text-sm font-medium leading-relaxed">{feature}</span>
                 </li>
               ))}
@@ -189,12 +192,12 @@ export default function ProductDetail() {
           </div>
           
           <div>
-            <h3 className="text-2xl font-bold tracking-tight text-slate-900 mb-6">Technical Specifications</h3>
+            <h3 className="text-2xl font-bold tracking-tight text-slate-900 mb-6">{t('products.specifications')}</h3>
             <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-xs">
               {Object.entries(product.specifications).map(([key, value], index) => (
                 <div key={key} className={`p-4 flex justify-between items-center ${index !== 0 ? 'border-t border-slate-100' : ''} ${index % 2 === 0 ? 'bg-white' : 'bg-slate-50/70'}`}>
-                  <span className="text-slate-500 font-medium text-xs sm:text-sm">{key}</span>
-                  <span className="font-bold text-slate-900 text-xs sm:text-sm text-right max-w-[60%]">{value}</span>
+                  <span className="text-slate-500 font-medium text-xs sm:text-sm">{translateSpecKey(key)}</span>
+                  <span className="font-bold text-slate-900 text-xs sm:text-sm text-right rtl:text-left max-w-[60%]">{value}</span>
                 </div>
               ))}
             </div>
@@ -203,10 +206,10 @@ export default function ProductDetail() {
               href={`https://wa.me/8618567413851?text=${encodeURIComponent(`Hello SG Packaging, please send me the technical drawing and TDS for ${product.name}.`)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 w-full flex items-center justify-center px-6 py-3.5 border border-slate-200 text-slate-800 rounded-xl font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors"
+              className="mt-6 w-full flex items-center justify-center px-6 py-3.5 border border-slate-200 text-slate-800 rounded-xl font-bold text-xs sm:text-sm hover:bg-slate-50 transition-colors gap-2"
             >
-              <Download size={16} className="mr-2 text-slate-500" />
-              <span>Request Technical Drawing & TDS</span>
+              <Download size={16} className="text-slate-500 shrink-0" />
+              <span>{t('products.requestTds')}</span>
             </a>
           </div>
         </div>

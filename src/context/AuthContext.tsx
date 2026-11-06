@@ -5,8 +5,7 @@ import {
   signOut as fbSignOut, 
   onAuthStateChanged 
 } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
-import { auth, googleProvider, db } from '../lib/firebase';
+import { auth, googleProvider } from '../lib/firebase';
 
 interface AuthContextType {
   user: User | null;
@@ -30,7 +29,15 @@ const AuthContext = createContext<AuthContextType>({
   clearError: () => {},
 });
 
-const SUPER_ADMIN_EMAIL = 'andrewandrre88@gmail.com';
+export const ALLOWED_ADMIN_EMAILS = [
+  'andrewandrre88@gmail.com',
+  'packagingsg02@gmail.com'
+];
+
+export const isAuthorizedAdminEmail = (email?: string | null): boolean => {
+  if (!email) return false;
+  return ALLOWED_ADMIN_EMAILS.includes(email.trim().toLowerCase());
+};
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -41,23 +48,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
       if (currentUser) {
-        // Check if primary super admin email
-        const isSuperAdmin = currentUser.email?.toLowerCase() === SUPER_ADMIN_EMAIL.toLowerCase();
+        const email = currentUser.email?.toLowerCase();
+        const isAuthorized = isAuthorizedAdminEmail(email);
         
-        if (isSuperAdmin) {
+        if (isAuthorized) {
+          setUser(currentUser);
           setIsAdmin(true);
         } else {
-          // Check admins collection in Firestore
+          // Immediately reject and sign out unauthorized users
           try {
-            const adminDoc = await getDoc(doc(db, 'admins', currentUser.uid));
-            setIsAdmin(adminDoc.exists());
+            await fbSignOut(auth);
           } catch {
-            setIsAdmin(false);
+            // Ignore signout error
           }
+          setUser(null);
+          setIsAdmin(false);
+          setAuthError(
+            `Access Restricted: Only authorized administrator accounts (andrewandrre88@gmail.com and packagingsg02@gmail.com) are permitted to access this portal. The account "${currentUser.email}" is not authorized.`
+          );
         }
       } else {
+        setUser(null);
         setIsAdmin(false);
       }
       setLoading(false);
@@ -75,11 +87,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAuthError(null);
 
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const email = result.user?.email?.toLowerCase();
+      
+      if (!isAuthorizedAdminEmail(email)) {
+        await fbSignOut(auth);
+        setUser(null);
+        setIsAdmin(false);
+        setAuthError(
+          `Access Restricted: Only authorized accounts (andrewandrre88@gmail.com and packagingsg02@gmail.com) are permitted. The account "${email || 'Unknown'}" is not authorized.`
+        );
+        return;
+      }
     } catch (err: any) {
-      // Harmless user action or duplicate popup cancel
       if (err?.code === 'auth/cancelled-popup-request') {
-        // Do not throw or log as fatal error
         return;
       }
       

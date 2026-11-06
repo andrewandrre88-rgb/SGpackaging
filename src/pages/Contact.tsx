@@ -2,8 +2,10 @@ import { useState, type FormEvent } from 'react';
 import PageHeader from '../components/PageHeader';
 import { Mail, Phone, MapPin, Send, CheckCircle2, Clock, ShieldCheck } from 'lucide-react';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Contact() {
+  const { t, isArabic } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
@@ -22,8 +24,8 @@ export default function Contact() {
   return (
     <div className="bg-white min-h-screen">
       <PageHeader 
-        title="Contact Export Sales & Factory Team" 
-        description="Direct factory communication for custom quotes, free sample dispatches, and OEM mold tooling consultations in Ningbo."
+        title={t('contact.title')} 
+        description={t('contact.subtitle')}
       />
 
       <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 2xl:px-12 py-12 sm:py-16">
@@ -33,13 +35,13 @@ export default function Contact() {
           <div className="lg:col-span-5 space-y-8">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-blue-600 block mb-1">
-                Direct Communication
+                {isArabic ? 'تواصل مباشر مع المصنع' : 'Direct Communication'}
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-4">
-                Let's discuss your next production run.
+                {isArabic ? 'دعنا نناقش متطلبات خط إنتاجك القادم.' : "Let's discuss your next production run."}
               </h2>
               <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-                Whether you need catalog samples dispatched to your overseas warehouse, a competitive container quote, or custom tooling, our English-speaking engineering sales team is ready.
+                {t('contact.subtitle')}
               </p>
             </div>
             
@@ -131,16 +133,16 @@ export default function Contact() {
                   <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <CheckCircle2 size={36} />
                   </div>
-                  <h3 className="text-2xl font-black text-slate-900 mb-2">Inquiry Successfully Transmitted!</h3>
+                  <h3 className="text-2xl font-black text-slate-900 mb-2">{t('contact.successTitle')}</h3>
                   <p className="text-slate-600 max-w-md mx-auto text-sm sm:text-base mb-6 leading-relaxed">
-                    Thank you, <strong className="text-slate-900">{formData.name || 'valued customer'}</strong>. Your specification sheet has been dispatched to our Ningbo export desk. An export director will email you within 4 hours.
+                    {t('contact.successDesc')} {isArabic ? 'شكراً لك،' : 'Thank you,'} <strong className="text-slate-900">{formData.name || (isArabic ? 'عميلنا العزيز' : 'valued customer')}</strong>.
                   </p>
                   <div className="flex flex-col sm:flex-row justify-center gap-3">
                     <button
                       onClick={() => setSubmitted(false)}
                       className="px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl text-xs uppercase tracking-wider transition-colors"
                     >
-                      Send Another Message
+                      {isArabic ? 'إرسال استفسار آخر' : 'Send Another Message'}
                     </button>
                     <a
                       href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20just%20submitted%20an%20inquiry%20via%20your%20website."
@@ -148,17 +150,17 @@ export default function Contact() {
                       rel="noopener noreferrer"
                       className="px-6 py-2.5 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
                     >
-                      <WhatsAppIcon className="w-4 h-4 fill-white" />
-                      <span>Speed Up via WhatsApp</span>
+                      <WhatsAppIcon className="w-4 h-4 fill-white shrink-0" />
+                      <span>{isArabic ? 'المتابعة السريعة عبر واتساب' : 'Speed Up via WhatsApp'}</span>
                     </a>
                   </div>
                 </div>
               ) : (
                 <>
                   <div className="mb-8">
-                    <h3 className="text-2xl font-black text-slate-900 mb-1">Send a Direct Inquiry</h3>
+                    <h3 className="text-2xl font-black text-slate-900 mb-1">{t('contact.formTitle')}</h3>
                     <p className="text-slate-500 text-xs sm:text-sm">
-                      Please provide as much specification detail (neck size, output, material, target quantities) as possible for an accurate quote.
+                      {isArabic ? 'يرجى تقديم تفاصيل المواصفات (مقاس العنق، معدل الضخ، المادة الخام، الكمية التقديرية) للحصول على أفضل تسعير.' : 'Please provide as much specification detail (neck size, output, material, target quantities) as possible for an accurate quote.'}
                     </p>
                   </div>
 
@@ -166,7 +168,7 @@ export default function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                          Full Name *
+                          {t('contact.name')} *
                         </label>
                         <input
                           type="text"
@@ -174,12 +176,12 @@ export default function Contact() {
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all text-sm bg-slate-50 focus:bg-white"
-                          placeholder="e.g. David Miller"
+                          placeholder={isArabic ? 'مثال: أحمد محمد' : 'e.g. David Miller'}
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                          Company / Brand *
+                          {t('contact.company')} *
                         </label>
                         <input
                           type="text"
@@ -187,7 +189,7 @@ export default function Contact() {
                           value={formData.company}
                           onChange={(e) => setFormData({...formData, company: e.target.value})}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all text-sm bg-slate-50 focus:bg-white"
-                          placeholder="e.g. Miller Cosmetics Ltd"
+                          placeholder={isArabic ? 'اسم الشركة أو العلامة التجارية' : 'e.g. Miller Cosmetics Ltd'}
                         />
                       </div>
                     </div>
@@ -195,7 +197,7 @@ export default function Contact() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                          Work Email *
+                          {t('contact.email')} *
                         </label>
                         <input
                           type="email"
@@ -203,12 +205,12 @@ export default function Contact() {
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
                           className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all text-sm bg-slate-50 focus:bg-white"
-                          placeholder="david@millercosmetics.com"
+                          placeholder="client@company.com"
                         />
                       </div>
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                          Phone / WhatsApp
+                          {t('contact.phone')}
                         </label>
                         <input
                           type="tel"
@@ -222,31 +224,31 @@ export default function Contact() {
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                        Inquiry Scope
+                        {isArabic ? 'نوع الطلب والاستفسار' : 'Inquiry Scope'}
                       </label>
                       <select
                         value={formData.type}
                         onChange={(e) => setFormData({...formData, type: e.target.value})}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all text-sm bg-slate-50 focus:bg-white font-medium"
                       >
-                        <option>Request Product Quote (FOB Ningbo / CIF)</option>
-                        <option>Request Free Physical Samples</option>
-                        <option>Custom OEM Mold Tooling & Engineering</option>
-                        <option>Schedule Factory Visit & Audit</option>
-                        <option>General Supply Chain Inquiry</option>
+                        <option>{isArabic ? 'طلب تسعير منتجات (FOB Ningbo / CIF)' : 'Request Product Quote (FOB Ningbo / CIF)'}</option>
+                        <option>{isArabic ? 'طلب عينات ملموسة مجانية' : 'Request Free Physical Samples'}</option>
+                        <option>{isArabic ? 'تصنيع وتطوير قوالب مخصصة OEM' : 'Custom OEM Mold Tooling & Engineering'}</option>
+                        <option>{isArabic ? 'جدولة زيارة وتدقيق للمصنع' : 'Schedule Factory Visit & Audit'}</option>
+                        <option>{isArabic ? 'استفسار عام عن سلاسل التوريد' : 'General Supply Chain Inquiry'}</option>
                       </select>
                     </div>
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                        Product Details & Specifications
+                        {t('contact.message')}
                       </label>
                       <textarea
                         rows={4}
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
                         className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all text-sm bg-slate-50 focus:bg-white placeholder:text-slate-400"
-                        placeholder="Please describe products of interest (e.g. 28/400 trigger sprayers, 24/410 lotion pumps), estimated order volume, destination port, or customization needs..."
+                        placeholder={isArabic ? 'يرجى وصف المنتجات المطلوبة (مثل: بخاخ تريجر 28/400، مضخة لوشن 24/410)، الكمية التقريبية، وميناء الوصول...' : 'Please describe products of interest (e.g. 28/400 trigger sprayers, 24/410 lotion pumps), estimated order volume, destination port, or customization needs...'}
                       />
                     </div>
 
@@ -254,8 +256,8 @@ export default function Contact() {
                       type="submit"
                       className="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold transition-colors flex items-center justify-center gap-2 text-sm shadow-md"
                     >
-                      <span>Submit Inquiry to Factory Desk</span>
-                      <Send size={16} />
+                      <span>{t('contact.submit')}</span>
+                      <Send size={16} className="rtl:rotate-180 shrink-0" />
                     </button>
                   </form>
                 </>

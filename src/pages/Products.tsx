@@ -6,9 +6,11 @@ import { useProducts } from '../services/storeService';
 import { Search, Filter, LayoutGrid, List, X, ExternalLink, PlusCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Products() {
   const { products, loading } = useProducts();
+  const { t, translateCategory, isArabic } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get('category') || 'all';
 
@@ -38,7 +40,9 @@ export default function Products() {
                           product.shortDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           (product.specifications?.['Neck Size'] && product.specifications['Neck Size'].toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === 'all' || product.category === CATEGORIES.find(c => c.id === selectedCategory)?.name;
+    const matchesCategory = selectedCategory === 'all' || 
+                            product.category === selectedCategory || 
+                            product.category === CATEGORIES.find(c => c.id === selectedCategory)?.name;
     
     return matchesSearch && matchesCategory;
   });
@@ -46,8 +50,8 @@ export default function Products() {
   return (
     <div className="bg-white min-h-screen">
       <PageHeader 
-        title="Dispensers & Packaging Catalog" 
-        description="Browse our precision-manufactured trigger sprayers, lotion pumps, mist dispensers, and cosmetic packaging manufactured in Yuyao, Ningbo."
+        title={t('products.title')} 
+        description={t('products.subtitle')}
       />
 
       <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 2xl:px-12 py-10 sm:py-14">
@@ -59,18 +63,18 @@ export default function Products() {
             
             {/* Search Input */}
             <div className="relative flex-1 max-w-lg">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <Search className="absolute left-4 rtl:left-auto rtl:right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
               <input
                 type="text"
-                placeholder="Search by name, category, or neck size (e.g. 28/400, lotion)..."
-                className="w-full pl-11 pr-10 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all text-sm bg-slate-50 focus:bg-white placeholder:text-slate-400"
+                placeholder={t('products.searchPlaceholder')}
+                className="w-full pl-11 rtl:pl-4 rtl:pr-11 pr-10 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all text-sm bg-slate-50 focus:bg-white placeholder:text-slate-400"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+                  className="absolute right-3 rtl:right-auto rtl:left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
                 >
                   <X size={16} />
                 </button>
@@ -80,7 +84,7 @@ export default function Products() {
             {/* Desktop View Switcher & Result Count */}
             <div className="flex items-center justify-between md:justify-end gap-4">
               <span className="text-xs font-semibold text-slate-500">
-                Showing <strong className="text-slate-900">{filteredProducts.length}</strong> products
+                {t('products.showing')} <strong className="text-slate-900">{filteredProducts.length}</strong> {t('products.results')}
               </span>
 
               {/* View Toggle (Grid vs Table/List) for desktop/tablets */}
@@ -90,20 +94,20 @@ export default function Products() {
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     viewMode === 'grid' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-900'
                   }`}
-                  title="Grid View"
+                  title={t('products.viewGrid')}
                 >
                   <LayoutGrid size={15} />
-                  <span>Grid</span>
+                  <span>{t('products.viewGrid')}</span>
                 </button>
                 <button
                   onClick={() => setViewMode('table')}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                     viewMode === 'table' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-900'
                   }`}
-                  title="Table / Specs View"
+                  title={t('products.viewTable')}
                 >
                   <List size={15} />
-                  <span>Table View</span>
+                  <span>{t('products.viewTable')}</span>
                 </button>
               </div>
 
@@ -114,9 +118,9 @@ export default function Products() {
                   onChange={(e) => handleCategoryChange(e.target.value)}
                   className="w-full px-4 py-2.5 border border-slate-200 rounded-xl bg-slate-50 text-xs font-bold text-slate-800"
                 >
-                  <option value="all">All Categories</option>
+                  <option value="all">{t('products.allCategories')}</option>
                   {CATEGORIES.map(cat => (
-                    <option key={cat.id} value={cat.id}>{cat.name} ({cat.count})</option>
+                    <option key={cat.id} value={cat.name}>{translateCategory(cat.name)} ({cat.count})</option>
                   ))}
                 </select>
               </div>
@@ -126,7 +130,7 @@ export default function Products() {
           {/* Category Pills (Desktop & Tablet) */}
           <div className="hidden md:flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mr-1 flex items-center gap-1">
-              <Filter size={13} /> Categories:
+              <Filter size={13} /> {t('products.allCategories')}:
             </span>
             <button
               onClick={() => handleCategoryChange('all')}
@@ -136,20 +140,20 @@ export default function Products() {
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
-              All Products
+              {t('products.allCategories')}
             </button>
             {CATEGORIES.map(cat => (
               <button
                 key={cat.id}
-                onClick={() => handleCategoryChange(cat.id)}
+                onClick={() => handleCategoryChange(cat.name)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 ${
-                  selectedCategory === cat.id
+                  selectedCategory === cat.name || selectedCategory === cat.id
                     ? 'bg-blue-600 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                <span>{cat.name}</span>
-                <span className={`text-[10px] ${selectedCategory === cat.id ? 'text-blue-200' : 'text-slate-400'}`}>
+                <span>{translateCategory(cat.name)}</span>
+                <span className={`text-[10px] ${selectedCategory === cat.name ? 'text-blue-200' : 'text-slate-400'}`}>
                   {cat.count}
                 </span>
               </button>
@@ -175,7 +179,7 @@ export default function Products() {
                     className="w-full h-full object-contain group-hover:scale-108 transition-transform duration-500"
                   />
                   <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider text-slate-700 border border-slate-200 shadow-xs">
-                    {product.category}
+                    {translateCategory(product.category)}
                   </div>
                   {product.specifications['Neck Size'] && (
                     <div className="absolute top-3 right-3 bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold border border-blue-200">
@@ -197,11 +201,11 @@ export default function Products() {
                   {/* Quick Specs Strip */}
                   <div className="bg-slate-50 rounded-xl p-2.5 mb-4 text-[11px] grid grid-cols-2 gap-2 border border-slate-100 text-slate-600">
                     <div>
-                      <span className="text-slate-400 block text-[10px] uppercase font-bold">Output</span>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">{t('products.output')}</span>
                       <span className="font-semibold text-slate-800">{product.specifications['Output'] || 'Standard'}</span>
                     </div>
                     <div>
-                      <span className="text-slate-400 block text-[10px] uppercase font-bold">MOQ</span>
+                      <span className="text-slate-400 block text-[10px] uppercase font-bold">{t('products.moq')}</span>
                       <span className="font-semibold text-slate-800">{product.moq}</span>
                     </div>
                   </div>
@@ -212,7 +216,7 @@ export default function Products() {
                       to={`/products/${product.id}`}
                       className="text-center py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-lg transition-colors"
                     >
-                      Specifications
+                      {t('products.viewDetails')}
                     </Link>
                     <a
                       href={`https://wa.me/8618567413851?text=${encodeURIComponent(`Hello SG Packaging, I would like to inquire about ${product.name} (MOQ: ${product.moq}).`)}`}
@@ -220,8 +224,8 @@ export default function Products() {
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-1 py-2 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold rounded-lg transition-colors"
                     >
-                      <WhatsAppIcon className="w-3.5 h-3.5 fill-[#25D366]" />
-                      <span>Inquire</span>
+                      <WhatsAppIcon className="w-3.5 h-3.5 fill-[#25D366] shrink-0" />
+                      <span>{t('products.inquire')}</span>
                     </a>
                   </div>
                 </div>

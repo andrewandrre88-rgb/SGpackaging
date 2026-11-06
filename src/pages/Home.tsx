@@ -6,9 +6,11 @@ import { CheckCircle2, Globe2, ShieldCheck, Factory, Award, ArrowRight, Sparkles
 import factoryInteriorImg from '../assets/images/factory_interior_1783250334324.jpg';
 import qualityControlImg from '../assets/images/quality_control_1783250348911.jpg';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Home() {
   const { products } = useProducts();
+  const { t, translateCategory, isArabic } = useLanguage();
   return (
     <div className="flex-1 flex flex-col">
       {/* Hero Section */}
@@ -23,33 +25,33 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-bold uppercase tracking-wider rounded-full mb-6 w-max shadow-xs">
-                  <Sparkles size={14} className="text-blue-600" />
-                  <span>Direct Factory in Yuyao, Ningbo • Sino Gate Division</span>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-blue-50 border border-blue-200/80 text-blue-700 text-xs font-bold uppercase tracking-wider rounded-full mb-6 w-max shadow-xs">
+                  <Sparkles size={14} className="text-blue-600 shrink-0" />
+                  <span>{t('home.heroBadge')}</span>
                 </div>
 
-                <h1 className="text-3xl sm:text-5xl md:text-6xl 2xl:text-7xl font-black leading-[1.08] tracking-tight text-slate-900 mb-6">
-                  Precision Packaging <br className="hidden sm:inline" />
-                  <span className="text-blue-600">Engineered For Global Brands</span>
+                <h1 className="text-3xl sm:text-5xl md:text-6xl 2xl:text-7xl font-black leading-[1.12] tracking-tight text-slate-900 mb-6">
+                  {t('home.heroTitle1')} <br className="hidden sm:inline" />
+                  <span className="text-blue-600">{t('home.heroTitle2')}</span>
                 </h1>
 
                 <p className="text-slate-600 text-base sm:text-lg lg:text-xl max-w-2xl leading-relaxed mb-8">
-                  World-class trigger sprayers, lotion pumps, fine mist dispensers, and custom plastic bottles manufactured in our certified Yuyao facility. Direct factory pricing with strict international QC.
+                  {t('home.heroDesc')}
                 </p>
 
                 {/* Key Metric Highlights on Computer / Desktop */}
                 <div className="grid grid-cols-3 gap-3 sm:gap-6 py-4 mb-8 border-y border-slate-200/80">
                   <div>
                     <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900">50,000<span className="text-blue-600">m²</span></div>
-                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium">Factory Facility</div>
+                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium">{isArabic ? 'مساحة المصنع والمرافق' : 'Factory Facility'}</div>
                   </div>
                   <div>
                     <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900">150<span className="text-blue-600">+</span></div>
-                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium">Injection Machines</div>
+                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium">{isArabic ? 'ماكينة حقن مؤتمتة' : 'Injection Machines'}</div>
                   </div>
                   <div>
-                    <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900">50<span className="text-blue-600">+</span></div>
-                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium">Countries Exported</div>
+                    <div className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900">60<span className="text-blue-600">+</span></div>
+                    <div className="text-[11px] sm:text-xs text-slate-500 font-medium">{t('home.statCountries')}</div>
                   </div>
                 </div>
 
@@ -58,7 +60,7 @@ export default function Home() {
                     to="/products"
                     className="px-8 py-4 bg-blue-600 text-white text-center font-bold text-sm sm:text-base rounded-xl shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all transform active:scale-95"
                   >
-                    Explore Product Catalog
+                    {t('home.heroExplore')}
                   </Link>
                   <a
                     href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20request%20a%20catalog%20and%20pricing."
@@ -66,14 +68,14 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="px-6 py-4 bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm sm:text-base rounded-xl flex items-center justify-center gap-2.5 transition-all shadow-md active:scale-95"
                   >
-                    <WhatsAppIcon className="w-5 h-5 fill-white" />
-                    <span>WhatsApp Sales (+86 18567413851)</span>
+                    <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
+                    <span>WhatsApp (+86 18567413851)</span>
                   </a>
                   <Link
                     to="/contact"
                     className="px-6 py-4 border-2 border-slate-200 hover:border-slate-400 text-slate-800 text-center font-bold text-sm sm:text-base rounded-xl hover:bg-slate-100 transition-colors"
                   >
-                    Request Quote
+                    {t('nav.requestQuote')}
                   </Link>
                 </div>
               </motion.div>
@@ -133,13 +135,13 @@ export default function Home() {
         <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 2xl:px-12">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-              Why Partner With Us
+              {t('home.whyTitle')}
             </span>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 mt-3">
-              Direct Chinese Manufacturing With Global Reliability
+              {isArabic ? 'تميز في التصنيع الهندسي بشراكة عالمية موثوقة' : 'Direct Chinese Manufacturing With Global Reliability'}
             </h2>
             <p className="mt-3 text-slate-500 text-sm sm:text-base leading-relaxed">
-              We eliminate middlemen to bring global cosmetic, chemical, and household brands direct-from-source packaging solutions.
+              {t('home.whySubtitle')}
             </p>
           </div>
 
@@ -147,27 +149,27 @@ export default function Home() {
             {[
               {
                 icon: ShieldCheck,
-                title: 'Strict Quality Control',
-                desc: '100% leak testing, drop tests, and optical dimension verification on all production batches.',
-                badge: 'Zero-Defect Goal'
+                title: t('home.whyQuality'),
+                desc: t('home.whyQualityDesc'),
+                badge: isArabic ? 'ضمان 100%' : 'Zero-Defect'
               },
               {
                 icon: Factory,
-                title: 'Direct From Yuyao Factory',
-                desc: 'Located at the heart of the world packaging capital, providing unmatched manufacturing capacity and pricing.',
-                badge: 'Factory Direct'
+                title: t('home.whyCustom'),
+                desc: t('home.whyCustomDesc'),
+                badge: isArabic ? 'تصنيع أصلي' : 'Custom OEM'
               },
               {
                 icon: Globe2,
-                title: 'Worldwide Export Network',
-                desc: 'Reliable sea and air freight logistics to North America, Europe, Australia, and 50+ countries.',
-                badge: '50+ Countries'
+                title: t('home.whyDual'),
+                desc: t('home.whyDualDesc'),
+                badge: isArabic ? 'أمريكا والصين' : 'Dual Hubs'
               },
               {
                 icon: CheckCircle2,
-                title: 'Custom Mold & OEM/ODM',
-                desc: 'In-house mold engineering, 3D prototyping, custom color matching, and private label branding.',
-                badge: 'Full OEM/ODM'
+                title: t('home.whySpeed'),
+                desc: t('home.whySpeedDesc'),
+                badge: isArabic ? 'شحن 48 ساعة' : '48h Dispatch'
               }
             ].map((feature, idx) => (
               <div
@@ -195,17 +197,17 @@ export default function Home() {
         <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 2xl:px-12 flex flex-col gap-10">
           <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-end gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Product Categories</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-blue-600">{t('home.featuredCategories')}</span>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 mt-1">
-                Explore Packaging Categories
+                {isArabic ? 'استكشف تصنيفات أنظمة التغليف والضخ' : 'Explore Packaging Categories'}
               </h2>
             </div>
             <Link
               to="/products"
               className="inline-flex items-center gap-1.5 text-blue-600 text-sm font-bold border-b-2 border-blue-600 pb-0.5 hover:text-blue-800 transition-colors"
             >
-              <span>View All 8 Categories</span>
-              <ArrowRight size={15} />
+              <span>{t('home.viewAllProducts')}</span>
+              <ArrowRight size={15} className="rtl:rotate-180" />
             </Link>
           </div>
           
@@ -213,20 +215,20 @@ export default function Home() {
             {CATEGORIES.slice(0, 8).map((category) => (
               <Link
                 key={category.id}
-                to={`/products?category=${category.id}`}
+                to={`/products?category=${encodeURIComponent(category.name)}`}
                 className="group cursor-pointer block bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/80 hover:border-blue-400 hover:shadow-lg transition-all duration-300"
               >
                 <div className="aspect-square bg-slate-50 rounded-xl mb-4 overflow-hidden relative flex items-center justify-center p-4 border border-slate-100 group-hover:bg-blue-50/30 transition-colors">
                   <img
                     src={category.image}
-                    alt={category.name}
+                    alt={translateCategory(category.name)}
                     className="w-full h-full object-contain group-hover:scale-108 transition-transform duration-500"
                   />
                 </div>
                 <h3 className="font-bold text-sm sm:text-base text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                  {category.name}
+                  {translateCategory(category.name)}
                 </h3>
-                <p className="text-xs text-slate-400 mt-1 font-medium">{category.count} Models Available</p>
+                <p className="text-xs text-slate-400 mt-1 font-medium">{category.count} {isArabic ? 'طراز متاح' : 'Models Available'}</p>
               </Link>
             ))}
           </div>
@@ -357,20 +359,20 @@ export default function Home() {
       <section className="bg-slate-950 py-20 sm:py-24 text-center px-4">
         <div className="max-w-4xl mx-auto flex flex-col items-center">
           <div className="inline-block px-3 py-1 bg-slate-800 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6 rounded-full border border-slate-700">
-            Let's build together
+            {isArabic ? 'لنبدأ التعاون معاً' : "Let's build together"}
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-6">
-            Ready to elevate your packaging supply chain?
+            {t('home.ctaTitle')}
           </h2>
           <p className="text-slate-400 mb-10 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-            Contact our export sales team in Ningbo today for free samples, technical catalog, and customized container quotes.
+            {t('home.ctaDesc')}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
             <Link
               to="/contact"
               className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-900/30 hover:bg-blue-500 transition-colors text-sm sm:text-base"
             >
-              Contact Sales Team
+              {t('home.ctaButton')}
             </Link>
             <a
               href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20request%20samples%20and%20a%20quote."
@@ -378,8 +380,8 @@ export default function Home() {
               rel="noopener noreferrer"
               className="bg-[#25D366] hover:bg-[#20ba59] text-white px-8 py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base transition-colors"
             >
-              <WhatsAppIcon className="w-5 h-5 fill-white" />
-              <span>Chat WhatsApp: +86 18567413851</span>
+              <WhatsAppIcon className="w-5 h-5 fill-white shrink-0" />
+              <span>{t('home.ctaWhatsapp')}</span>
             </a>
           </div>
         </div>

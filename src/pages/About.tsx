@@ -4,20 +4,23 @@ import factoryInteriorImg from '../assets/images/factory_interior_1783250334324.
 import qualityControlImg from '../assets/images/quality_control_1783250348911.jpg';
 import SGLogo from '../components/SGLogo';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function About() {
+  const { t, isArabic } = useLanguage();
+
   const credentials = [
-    { number: '15+', label: 'Years in Precision Molding', desc: 'Yuyao manufacturing heritage' },
-    { number: '50+', label: 'Global Export Markets', desc: 'North America, EU, LatAm, MENA' },
-    { number: '1,200+', label: 'Annual HQ Containers', desc: 'Direct from Ningbo port' },
-    { number: '99.8%', label: 'First-Pass QC Rate', desc: 'Rigorous ISO 9001:2015 protocol' },
+    { number: '15+', label: isArabic ? 'عاماً في هندسة القولبة' : 'Years in Precision Molding', desc: isArabic ? 'عراقة تصنيع يويو' : 'Yuyao manufacturing heritage' },
+    { number: '60+', label: isArabic ? 'دولة يتم التصدير إليها' : 'Global Export Markets', desc: isArabic ? 'أمريكا، أوروبا، الشرق الأوسط' : 'North America, EU, LatAm, MENA' },
+    { number: '1,200+', label: isArabic ? 'حاوية شحن سنوياً' : 'Annual HQ Containers', desc: isArabic ? 'مباشرة من ميناء نينغبو' : 'Direct from Ningbo port' },
+    { number: '99.8%', label: isArabic ? 'معدل اجتياز الفحص الأولي' : 'First-Pass QC Rate', desc: isArabic ? 'معيار ISO 9001:2015' : 'Rigorous ISO 9001:2015 protocol' },
   ];
 
   return (
     <div className="bg-white">
       <PageHeader 
-        title="About SG Packaging" 
-        description="A premier division of Sino Gate, dedicated to precision dispensing solutions engineered directly in China's plastic manufacturing capital."
+        title={t('about.title')} 
+        description={t('about.subtitle')}
       />
       
       <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-10 2xl:px-12 py-12 sm:py-20">
@@ -31,29 +34,29 @@ export default function About() {
             </div>
             
             <h2 className="text-3xl sm:text-4xl 2xl:text-5xl font-black tracking-tight text-slate-900 mb-6">
-              Engineering the world's most dependable packaging dispensers.
+              {isArabic ? 'هندسة أكثر أنظمة ضخ وتوزيع التغليف موثوقية في العالم.' : "Engineering the world's most dependable packaging dispensers."}
             </h2>
 
             <div className="space-y-4 text-slate-600 leading-relaxed text-base sm:text-lg">
               <p>
-                SG Packaging was established as a specialized division under Sino Gate, aiming to eliminate supply friction between international brand owners, packaging distributors, and tier-1 Chinese precision manufacturing facilities.
+                {isArabic ? 'تأسست شركة SG Packaging ككيان استراتيجي رائد، بهدف إزالة أي عوائق في سلاسل التوريد بين كبرى العلامات التجارية العالمية وموزعي التغليف، وبين مصانع القولبة والإنتاج الدقيق المباشر في الصين.' : 'SG Packaging was established as a specialized division under Sino Gate, aiming to eliminate supply friction between international brand owners, packaging distributors, and tier-1 Chinese precision manufacturing facilities.'}
               </p>
               <p>
-                Headquartered in Houston, Texas, USA for global operations, with our manufacturing and engineering base in Yuyao, Ningbo, Zhejiang Province — internationally celebrated as China's plastic packaging and mold tooling capital. This dual-presence allows us to sit at the immediate nexus of client strategy, raw resin procurement, high-speed automated assembly, and Ningbo Port container shipping.
+                {isArabic ? 'يقع مقرنا التجاري والدعم الدولي في هيوستن، تكساس بالولايات المتحدة الأمريكية، مع مركز التصنيع والهندسة المتقدم في يويو، نينغبو بمقاطعة تشجيانغ — عاصمة صناعة البلاستيك والقوالب الشهيرة عالمياً. هذا التواجد الاستراتيجي المزدوج يمنح عملاءنا سرعة في التواصل، وأفضل أسعار المصنع المباشرة، وسرعة شحن الحاويات من ميناء نينغبو تشوشان الدولي.' : 'Headquartered in Houston, Texas, USA for global operations, with our manufacturing and engineering base in Yuyao, Ningbo, Zhejiang Province — internationally celebrated as China\'s plastic packaging and mold tooling capital. This dual-presence allows us to sit at the immediate nexus of client strategy, raw resin procurement, high-speed automated assembly, and Ningbo Port container shipping.'}
               </p>
               <p>
-                With over a decade and a half of engineering experience, our team specializes in leak-free trigger sprayers, fine mist dispensers, high-viscosity lotion pumps, and custom cosmetic packaging tailored to demanding brand specifications.
+                {isArabic ? 'بخبرة هندسية تمتد لأكثر من ربع قرن، نتخصص في بخاخات التريجر المانعة للتسريب، وبخاخات الرذاذ الدقيق، ومضخات اللوشن عالية اللزوجة، وعبوات مستحضرات التجميل المخصصة لتلبية أعلى متطلبات الجودة الدولية.' : 'With over a decade and a half of engineering experience, our team specializes in leak-free trigger sprayers, fine mist dispensers, high-viscosity lotion pumps, and custom cosmetic packaging tailored to demanding brand specifications.'}
               </p>
             </div>
 
             <div className="mt-8 flex flex-wrap gap-4 text-sm font-semibold text-slate-800">
               <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
-                <ShieldCheck className="text-blue-600 w-5 h-5" />
-                <span>ISO 9001:2015 Audited</span>
+                <ShieldCheck className="text-blue-600 w-5 h-5 shrink-0" />
+                <span>{isArabic ? 'معتمد بشهادة ISO 9001:2015' : 'ISO 9001:2015 Audited'}</span>
               </div>
               <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200">
-                <Globe2 className="text-blue-600 w-5 h-5" />
-                <span>Multilingual Export Operations</span>
+                <Globe2 className="text-blue-600 w-5 h-5 shrink-0" />
+                <span>{isArabic ? 'عمليات تصدير ودعم متعدد اللغات' : 'Multilingual Export Operations'}</span>
               </div>
             </div>
           </div>

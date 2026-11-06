@@ -32,16 +32,11 @@ export function optimizeImageFile(
         let width = img.width;
         let height = img.height;
 
-        // Calculate aspect-ratio preserving dimensions
+        // Calculate aspect-ratio preserving dimensions without distortion
         if (width > maxWidth || height > maxHeight) {
-          if (width / height > maxWidth / maxHeight) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          } else {
-            width = Math.round((width * maxHeight) / height);
-            maxHeight = height;
-            height = maxHeight;
-          }
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width = Math.round(width * ratio);
+          height = Math.round(height * ratio);
         }
 
         const canvas = document.createElement('canvas');

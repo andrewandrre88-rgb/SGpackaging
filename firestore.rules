@@ -25,7 +25,7 @@ service cloud.firestore {
 
     function isAdmin() {
       return isSignedIn() && (
-        (request.auth.token.email == 'andrewandrre88@gmail.com' && request.auth.token.email_verified == true) ||
+        ((request.auth.token.email == 'andrewandrre88@gmail.com' || request.auth.token.email == 'packagingsg02@gmail.com') && request.auth.token.email_verified == true) ||
         exists(/databases/$(database)/documents/admins/$(request.auth.uid))
       );
     }
@@ -37,7 +37,7 @@ service cloud.firestore {
         data.shortDescription is string && data.shortDescription.size() <= 500 &&
         data.description is string && data.description.size() <= 5000 &&
         data.image is string && data.image.size() <= 200000 &&
-        data.createdBy is string && data.createdBy == request.auth.uid;
+        data.createdBy is string && data.createdBy.size() > 0 && data.createdBy.size() <= 128;
     }
 
     function isValidBlogPost(data) {
@@ -48,14 +48,14 @@ service cloud.firestore {
         data.content is string && data.content.size() <= 20000 &&
         data.author is string && data.author.size() <= 100 &&
         data.image is string && data.image.size() <= 200000 &&
-        data.createdBy is string && data.createdBy == request.auth.uid;
+        data.createdBy is string && data.createdBy.size() > 0 && data.createdBy.size() <= 128;
     }
 
     // Products collection: public view, admin write
     match /products/{productId} {
       allow get, list: if true;
       allow create: if isAdmin() && isValidId(productId) && isValidProduct(incoming());
-      allow update: if isAdmin() && isValidId(productId) && isValidProduct(incoming()) && incoming().createdBy == existing().createdBy;
+      allow update: if isAdmin() && isValidId(productId) && isValidProduct(incoming());
       allow delete: if isAdmin() && isValidId(productId);
     }
 
@@ -63,7 +63,7 @@ service cloud.firestore {
     match /blog_posts/{postId} {
       allow get, list: if true;
       allow create: if isAdmin() && isValidId(postId) && isValidBlogPost(incoming());
-      allow update: if isAdmin() && isValidId(postId) && isValidBlogPost(incoming()) && incoming().createdBy == existing().createdBy;
+      allow update: if isAdmin() && isValidId(postId) && isValidBlogPost(incoming());
       allow delete: if isAdmin() && isValidId(postId);
     }
 

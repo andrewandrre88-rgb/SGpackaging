@@ -4,70 +4,73 @@ import qualityControlImg from '../assets/images/quality_control_1783250348911.jp
 import { Cpu, CheckCircle2, ShieldCheck, Warehouse, Gauge, Microscope, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Factory() {
+  const { t, isArabic } = useLanguage();
+
   const images = [
     { 
       src: factoryInteriorImg, 
       alt: 'High-Precision Injection Molding Workshop', 
-      title: 'Precision Injection Molding', 
-      desc: '150+ Haitian & Demag servo-electric injection molding machines operating 24/7 with computerized temperature & pressure control.' 
+      title: isArabic ? 'قولبة حقن عالية الدقة' : 'Precision Injection Molding', 
+      desc: isArabic ? 'أكثر من 150 ماكينة حقن مؤتمتة تعمل بنظام التحكم الحراري والضغط الرقمي على مدار الساعة.' : '150+ Haitian & Demag servo-electric injection molding machines operating 24/7 with computerized temperature & pressure control.' 
     },
     { 
       src: factoryInteriorImg, 
       alt: 'Automated High-Speed Assembly Line', 
-      title: 'Automated Robotic Assembly', 
-      desc: 'High-speed rotary assembly systems capable of 60-120 trigger sprayers per minute with 100% optical leak & seal inspection.' 
+      title: isArabic ? 'تجميع آلي بالروبوتات' : 'Automated Robotic Assembly', 
+      desc: isArabic ? 'خطوط تجميع دائرية فائقة السرعة تنتج 60-120 بخاخ تريجر بالدقيقة مع فحص تسريب بصري 100%.' : 'High-speed rotary assembly systems capable of 60-120 trigger sprayers per minute with 100% optical leak & seal inspection.' 
     },
     { 
       src: qualityControlImg, 
       alt: 'ISO 9001 Quality Control Laboratory', 
-      title: 'Quality Assurance & Testing Lab', 
-      desc: 'Equipped with vacuum leak chambers, drop test towers, fatigue stroke endurance testers (10,000+ pumps), and laser particle analyzers.' 
+      title: isArabic ? 'مختبر ضمان الجودة وفحص العينات' : 'Quality Assurance & Testing Lab', 
+      desc: isArabic ? 'مجهز بغرف تفريغ وفحص تسريب واختبارات ضغط تتجاوز 10,000 ضغطة متواصلة لضمان المتانة.' : 'Equipped with vacuum leak chambers, drop test towers, fatigue stroke endurance testers (10,000+ pumps), and laser particle analyzers.' 
     },
     { 
       src: factoryInteriorImg, 
       alt: 'Smart Warehousing & Container Loading', 
-      title: 'Intelligent Logistics & Warehousing', 
-      desc: '15,000 m² racked warehousing with direct container loading bays, 45 minutes from Ningbo Port (Zhoushan).' 
+      title: isArabic ? 'مستودعات ذكية وتحميل حاويات' : 'Intelligent Logistics & Warehousing', 
+      desc: isArabic ? 'مستودعات منظمة بمساحة 15,000 م² مع أرصفة شحن مباشر تبعد 45 دقيقة عن ميناء نينغبو.' : '15,000 m² racked warehousing with direct container loading bays, 45 minutes from Ningbo Port (Zhoushan).' 
     }
   ];
 
   const factoryStats = [
-    { value: '50,000 m²', label: 'Production Plant', sub: 'Yuyao Plastic Industrial Park' },
-    { value: '150+', label: 'Injection Machines', sub: 'High-precision servo systems' },
-    { value: '1.2M+', label: 'Daily Output Capacity', sub: 'Dispensers, pumps & sprayers' },
-    { value: 'Class 100K', label: 'Dust-Free Cleanroom', sub: 'Medical & cosmetic grade' },
+    { value: '50,000 m²', label: isArabic ? 'مساحة المنشأة' : 'Production Plant', sub: isArabic ? 'المنطقة الصناعية للبلاستيك بيويو' : 'Yuyao Plastic Industrial Park' },
+    { value: '150+', label: isArabic ? 'ماكينة حقن' : 'Injection Machines', sub: isArabic ? 'أنظمة سيرفو عالية الدقة' : 'High-precision servo systems' },
+    { value: '1.2M+', label: isArabic ? 'الطاقة الإنتاجية اليومية' : 'Daily Output Capacity', sub: isArabic ? 'بخاخات ومضخات وعبوات' : 'Dispensers, pumps & sprayers' },
+    { value: 'Class 100K', label: isArabic ? 'غرف نظيفة معقمة' : 'Dust-Free Cleanroom', sub: isArabic ? 'لمستحضرات التجميل والأدوية' : 'Medical & cosmetic grade' },
   ];
 
   const equipmentFeatures = [
     {
-      icon: <Cpu className="text-blue-600 w-6 h-6" />,
-      title: 'Automated Mold Tooling & CNC',
-      desc: 'Equipped with in-house CNC mold centers, EDM spark machines, and wire cutting to build custom OEM molds in 20-25 days.'
+      icon: <Cpu className="text-blue-600 w-6 h-6 shrink-0" />,
+      title: isArabic ? 'صناعة القولبة المؤتمتة ومراكز CNC' : 'Automated Mold Tooling & CNC',
+      desc: isArabic ? 'مجهزة بمراكز CNC وماكينات شرارة EDM لإنتاج القوالب المخصصة OEM خلال 20-25 يوماً.' : 'Equipped with in-house CNC mold centers, EDM spark machines, and wire cutting to build custom OEM molds in 20-25 days.'
     },
     {
-      icon: <Gauge className="text-blue-600 w-6 h-6" />,
-      title: '100% In-Line Vacuum Testing',
-      desc: 'Every single trigger and lotion pump undergoes automated negative pressure vacuum testing to eliminate liquid leakage.'
+      icon: <Gauge className="text-blue-600 w-6 h-6 shrink-0" />,
+      title: isArabic ? 'فحص تفريغ هوائي 100% على الخط' : '100% In-Line Vacuum Testing',
+      desc: isArabic ? 'يخضع كل بخاخ تريجر ومضخة لوشن لفحص ضغط سالب وفراغي آلي لمنع أي تسريب.' : 'Every single trigger and lotion pump undergoes automated negative pressure vacuum testing to eliminate liquid leakage.'
     },
     {
-      icon: <Microscope className="text-blue-600 w-6 h-6" />,
-      title: 'Compatibility & Chemical Testing',
-      desc: 'Dedicated chemical compatibility chambers to test dip tubes, gaskets, and springs against aggressive cleaning and cosmetic solvents.'
+      icon: <Microscope className="text-blue-600 w-6 h-6 shrink-0" />,
+      title: isArabic ? 'اختبار التوافق الكيميائي للمواد' : 'Compatibility & Chemical Testing',
+      desc: isArabic ? 'غرف فحص مخصصة لاختبار مقاومة أنابيب الغمر والجوانات مع المنظفات والمذيبات ومستحضرات التجميل.' : 'Dedicated chemical compatibility chambers to test dip tubes, gaskets, and springs against aggressive cleaning and cosmetic solvents.'
     },
     {
-      icon: <ShieldCheck className="text-blue-600 w-6 h-6" />,
-      title: 'Strict ISO 9001:2015 Audited',
-      desc: 'Full lot traceability from virgin PP/PE resin pellets to masterbatches, assembly dates, and container shipment pallets.'
+      icon: <ShieldCheck className="text-blue-600 w-6 h-6 shrink-0" />,
+      title: isArabic ? 'تدقيق كامل وفق معيار ISO 9001:2015' : 'Strict ISO 9001:2015 Audited',
+      desc: isArabic ? 'تتبع كامل للتشغيلات من حبيبات راتنج PP/PE الخام حتى تجميع البالتات وشحن الحاويات.' : 'Full lot traceability from virgin PP/PE resin pellets to masterbatches, assembly dates, and container shipment pallets.'
     }
   ];
 
   return (
     <div className="bg-white">
       <PageHeader 
-        title="Manufacturing Facilities & OEM Capability" 
-        description="Take an inside look at our modern production plant in Yuyao, Ningbo — the heart of China's precision plastic dispensing industry."
+        title={t('factory.title')} 
+        description={t('factory.subtitle')}
       />
 
       {/* Main Content Area */}

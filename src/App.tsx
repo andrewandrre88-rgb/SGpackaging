@@ -16,27 +16,30 @@ import BlogPostDetail from './pages/BlogPostDetail';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Layout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/factory" element={<Factory />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPostDetail />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/admin" element={<Dashboard />} />
-            <Route path="/login" element={<Dashboard />} />
-          </Routes>
-        </Layout>
-      </BrowserRouter>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/products/:id" element={<ProductDetail />} />
+              <Route path="/factory" element={<Factory />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPostDetail />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/admin" element={<Dashboard />} />
+              <Route path="/login" element={<Dashboard />} />
+            </Routes>
+          </Layout>
+        </BrowserRouter>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
