@@ -87,7 +87,7 @@ export default function Home() {
                 <img
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   src={factoryInteriorImg}
-                  alt="SG Packaging automated factory floor in Yuyao, Ningbo"
+                  alt="Yi Lai Plastics Factory automated manufacturing floor in Yuyao, Ningbo"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-900/10"></div>
 
@@ -293,7 +293,7 @@ export default function Home() {
                         Specs & Details
                       </Link>
                       <a
-                        href={`https://wa.me/8618567413851?text=${encodeURIComponent(`Hello SG Packaging, I would like to inquire about ${product.name} (MOQ: ${product.moq}).`)}`}
+                        href={`https://wa.me/8618567413851?text=${encodeURIComponent(`Hello Yi Lai Plastics Factory, I would like to inquire about ${product.name} (MOQ: ${product.moq}).`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center gap-1.5 py-2.5 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold rounded-lg transition-colors"

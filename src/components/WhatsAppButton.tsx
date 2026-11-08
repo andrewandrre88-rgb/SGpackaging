@@ -6,8 +6,8 @@ export default function WhatsAppButton() {
   const phoneNumber = '8618567413851';
   const displayPhone = '+86 18567413851';
   const message = isArabic 
-    ? 'مرحباً SG Packaging، أود الاستفسار عن منتجات التغليف والضخ الخاصة بكم.' 
-    : 'Hello SG Packaging, I would like to inquire about your packaging products.';
+    ? 'مرحباً مصنع يي لاي للبلاستيك، أود الاستفسار عن منتجات التغليف والضخ الخاصة بكم.' 
+    : 'Hello Yi Lai Plastics Factory, I would like to inquire about your packaging products.';
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (

@@ -30,7 +30,7 @@ export default function About() {
           <div className="lg:col-span-7">
             <div className="inline-flex items-center gap-3 bg-slate-50 border border-slate-200/80 rounded-xl px-4 py-2 mb-6">
               <SGLogo className="h-7 w-auto" markOnly />
-              <span className="text-xs font-bold tracking-wider text-slate-800 uppercase">Official Sino Gate Enterprise Division</span>
+              <span className="text-xs font-bold tracking-wider text-slate-800 uppercase">Yi Lai Plastics Factory Enterprise</span>
             </div>
             
             <h2 className="text-3xl sm:text-4xl 2xl:text-5xl font-black tracking-tight text-slate-900 mb-6">
@@ -39,7 +39,7 @@ export default function About() {
 
             <div className="space-y-4 text-slate-600 leading-relaxed text-base sm:text-lg">
               <p>
-                {isArabic ? 'تأسست شركة SG Packaging ككيان استراتيجي رائد، بهدف إزالة أي عوائق في سلاسل التوريد بين كبرى العلامات التجارية العالمية وموزعي التغليف، وبين مصانع القولبة والإنتاج الدقيق المباشر في الصين.' : 'SG Packaging was established as a specialized division under Sino Gate, aiming to eliminate supply friction between international brand owners, packaging distributors, and tier-1 Chinese precision manufacturing facilities.'}
+                {isArabic ? 'تأسس مصنع يي لاي للبلاستيك (Yi Lai Plastics Factory) ككيان تصنيعي استراتيجي رائد، بهدف إزالة أي عوائق في سلاسل التوريد بين كبرى العلامات التجارية العالمية وموزعي التغليف، وبين مصانع القولبة والإنتاج الدقيق المباشر في الصين.' : 'Yi Lai Plastics Factory was established as a specialized precision manufacturing entity, aiming to eliminate supply friction between international brand owners, packaging distributors, and tier-1 Chinese precision manufacturing facilities.'}
               </p>
               <p>
                 {isArabic ? 'يقع مقرنا التجاري والدعم الدولي في هيوستن، تكساس بالولايات المتحدة الأمريكية، مع مركز التصنيع والهندسة المتقدم في يويو، نينغبو بمقاطعة تشجيانغ — عاصمة صناعة البلاستيك والقوالب الشهيرة عالمياً. هذا التواجد الاستراتيجي المزدوج يمنح عملاءنا سرعة في التواصل، وأفضل أسعار المصنع المباشرة، وسرعة شحن الحاويات من ميناء نينغبو تشوشان الدولي.' : 'Headquartered in Houston, Texas, USA for global operations, with our manufacturing and engineering base in Yuyao, Ningbo, Zhejiang Province — internationally celebrated as China\'s plastic packaging and mold tooling capital. This dual-presence allows us to sit at the immediate nexus of client strategy, raw resin procurement, high-speed automated assembly, and Ningbo Port container shipping.'}

@@ -67,6 +67,12 @@ service cloud.firestore {
       allow delete: if isAdmin() && isValidId(postId);
     }
 
+    // Site Settings (branding, custom logo, etc.)
+    match /settings/{settingId} {
+      allow get, list: if true;
+      allow create, update, delete: if isAdmin() && isValidId(settingId);
+    }
+
     // Admins registry
     match /admins/{adminId} {
       allow get: if isSignedIn() && (request.auth.uid == adminId || isAdmin());

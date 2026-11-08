@@ -15,6 +15,7 @@ import Blog from './pages/Blog';
 import BlogPostDetail from './pages/BlogPostDetail';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
+import SitemapPage from './pages/SitemapPage';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
 
@@ -34,6 +35,7 @@ export default function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogPostDetail />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/sitemap" element={<SitemapPage />} />
               <Route path="/admin" element={<Dashboard />} />
               <Route path="/login" element={<Dashboard />} />
             </Routes>

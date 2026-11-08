@@ -83,10 +83,10 @@ export default function Navbar() {
               <SGLogo className="h-10 sm:h-12 w-auto" markOnly />
               <div className="flex flex-col">
                 <span className="text-lg sm:text-2xl font-black tracking-tighter text-slate-900 leading-none">
-                  SG <span className="text-blue-700">PACKAGING</span>
+                  YI LAI <span className="text-blue-700">PLASTICS</span>
                 </span>
                 <span className="text-[8px] sm:text-[10px] uppercase tracking-[0.28em] font-bold text-slate-400 mt-1">
-                  A Division of Sino Gate
+                  Plastics &amp; Packaging Factory
                 </span>
               </div>
             </Link>
@@ -114,7 +114,7 @@ export default function Navbar() {
             {/* Actions for Desktop/Laptop */}
             <div className="hidden lg:flex items-center gap-2.5 xl:gap-3.5">
               <a
-                href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+                href="https://wa.me/8618567413851?text=Hello%20Yi%20Lai%20Plastics%20Factory%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 xl:px-4 py-2 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 text-xs font-bold rounded-full transition-colors border border-emerald-200 shadow-sm shrink-0"
@@ -136,7 +136,7 @@ export default function Navbar() {
             <div className="lg:hidden flex items-center gap-2">
               <LanguageSwitcher variant="light" className="text-[10px]" />
               <a
-                href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+                href="https://wa.me/8618567413851?text=Hello%20Yi%20Lai%20Plastics%20Factory%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-emerald-600 hover:bg-emerald-50 rounded-full transition-colors"
@@ -185,7 +185,7 @@ export default function Navbar() {
 
             <div className="pt-4 border-t border-slate-100 mt-3 space-y-2">
               <a
-                href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+                href="https://wa.me/8618567413851?text=Hello%20Yi%20Lai%20Plastics%20Factory%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}

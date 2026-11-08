@@ -323,7 +323,7 @@ export async function updateBlogPost(id: string, updates: Partial<BlogPost>) {
     category: (updates.category ?? defaultPost?.category ?? 'Industry Trends').trim().slice(0, 100),
     excerpt: (updates.excerpt ?? defaultPost?.excerpt ?? '').trim().slice(0, 800),
     content: (updates.content ?? defaultPost?.content ?? '').trim().slice(0, 20000),
-    author: (updates.author ?? defaultPost?.author ?? 'SG Packaging Team').trim().slice(0, 100),
+    author: (updates.author ?? defaultPost?.author ?? 'Yi Lai Plastics Factory Team').trim().slice(0, 100),
     image: (updates.image ?? defaultPost?.image ?? '').slice(0, 200000),
     date: (updates.date ?? defaultPost?.date ?? new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })).slice(0, 50),
     readTime: updates.readTime ?? defaultPost?.readTime ?? '5 min read',
@@ -349,5 +349,96 @@ export async function deleteBlogPost(id: string) {
     await deleteDoc(doc(db, BLOG_COLLECTION, id));
   } catch (error) {
     handleFirestoreError(error, OperationType.DELETE, path);
+  }
+}
+
+const SETTINGS_COLLECTION = 'settings';
+const BRANDING_DOC_ID = 'branding';
+const LOCAL_STORAGE_LOGO_KEY = 'yilai_custom_logo';
+
+/**
+ * Hook to retrieve site branding (custom logo) with instant localStorage cache + Firestore sync
+ */
+export function useSiteBranding() {
+  const [logoUrl, setLogoUrl] = useState<string>(() => {
+    return localStorage.getItem(LOCAL_STORAGE_LOGO_KEY) || '/sg_logo_transparent.png';
+  });
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const cached = localStorage.getItem(LOCAL_STORAGE_LOGO_KEY);
+    if (cached) {
+      setLogoUrl(cached);
+    }
+
+    try {
+      const docRef = doc(db, SETTINGS_COLLECTION, BRANDING_DOC_ID);
+      const unsubscribe = onSnapshot(docRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          if (data && data.logoUrl) {
+            setLogoUrl(data.logoUrl);
+            localStorage.setItem(LOCAL_STORAGE_LOGO_KEY, data.logoUrl);
+          }
+        }
+        setLoading(false);
+      }, (err) => {
+        console.error('Error fetching site branding:', err);
+        setLoading(false);
+      });
+
+      return () => unsubscribe();
+    } catch (err) {
+      console.error('Snapshot init error for branding:', err);
+      setLoading(false);
+    }
+  }, []);
+
+  return { logoUrl, loading };
+}
+
+/**
+ * Save custom company logo to Firestore and localStorage
+ */
+export async function saveSiteLogo(newLogoUrl: string) {
+  const currentUser = auth.currentUser;
+  if (!currentUser) throw new Error('Authentication required.');
+
+  localStorage.setItem(LOCAL_STORAGE_LOGO_KEY, newLogoUrl);
+
+  const payload = {
+    logoUrl: newLogoUrl,
+    updatedAt: new Date().toISOString(),
+    updatedBy: currentUser.email || currentUser.uid,
+  };
+
+  try {
+    const docRef = doc(db, SETTINGS_COLLECTION, BRANDING_DOC_ID);
+    await setDoc(docRef, payload, { merge: true });
+  } catch (error) {
+    handleFirestoreError(error, OperationType.UPDATE, `${SETTINGS_COLLECTION}/${BRANDING_DOC_ID}`);
+  }
+}
+
+/**
+ * Reset company logo to factory default
+ */
+export async function resetSiteLogo() {
+  const currentUser = auth.currentUser;
+  if (!currentUser) throw new Error('Authentication required.');
+
+  localStorage.removeItem(LOCAL_STORAGE_LOGO_KEY);
+
+  const payload = {
+    logoUrl: '/sg_logo_transparent.png',
+    updatedAt: new Date().toISOString(),
+    updatedBy: currentUser.email || currentUser.uid,
+  };
+
+  try {
+    const docRef = doc(db, SETTINGS_COLLECTION, BRANDING_DOC_ID);
+    await setDoc(docRef, payload, { merge: true });
+  } catch (error) {
+    handleFirestoreError(error, OperationType.UPDATE, `${SETTINGS_COLLECTION}/${BRANDING_DOC_ID}`);
   }
 }

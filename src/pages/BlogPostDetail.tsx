@@ -14,7 +14,7 @@ export default function BlogPostDetail() {
   const post = posts.find((p) => String(p.id) === id);
 
   useSEO({
-    title: post ? `${post.title} | SG Packaging Blog` : 'Industry Blog',
+    title: post ? `${post.title} | Yi Lai Plastics Factory Blog` : 'Industry Blog',
     description: post?.excerpt,
     keywords: post?.seoKeywords || (post ? `${post.title}, ${post.category}, packaging industry, cosmetic packaging` : undefined),
     image: post?.image

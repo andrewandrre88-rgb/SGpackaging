@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+
+# Google, Bing, Yahoo, Yandex, DuckDuckGo Sitemaps
+Sitemap: https://sgpackaging.online/sitemap.xml

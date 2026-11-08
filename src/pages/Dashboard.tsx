@@ -24,6 +24,9 @@ import { useAuth } from '../context/AuthContext';
 import { 
   useProducts, 
   useBlogPosts, 
+  useSiteBranding,
+  saveSiteLogo,
+  resetSiteLogo,
   createProduct, 
   updateProduct,
   deleteProduct, 
@@ -41,6 +44,8 @@ import { useLanguage } from '../context/LanguageContext';
 
 // Quick preset image library for convenience
 const PRESET_IMAGES = [
+  { label: 'Yi Lai Factory Emblem (Blue/Cyan)', url: '/yilai_factory_logo.jpg' },
+  { label: 'Factory Transparent Mark', url: '/sg_logo_transparent.png' },
   { label: 'Trigger Sprayer (Clear/Black)', url: 'https://raw.githubusercontent.com/andrewandrre88-rgb/MILA-PLASTICS-IMAGES/refs/heads/main/ChatGPT%20Image%20Sep%203%2C%202026%2C%2002_04_57%20PM.png' },
   { label: 'Cosmetic Packaging', url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80' },
   { label: 'Lotion Pump Bottle', url: 'https://images.unsplash.com/photo-1608248597359-5613531b46a2?auto=format&fit=crop&w=800&q=80' },
@@ -52,10 +57,13 @@ export default function Dashboard() {
   const { user, isAdmin, loading: authLoading, isSigningIn, loginWithGoogle, logout, authError } = useAuth();
   const { products, loading: productsLoading } = useProducts();
   const { posts, loading: postsLoading } = useBlogPosts();
+  const { logoUrl: currentBrandLogo } = useSiteBranding();
   const { t, isArabic } = useLanguage();
 
-  const [activeTab, setActiveTab] = useState<'products' | 'blog'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'blog' | 'branding'>('products');
   const [searchTerm, setSearchTerm] = useState('');
+  const [logoInput, setLogoInput] = useState('');
+  const [savingLogo, setSavingLogo] = useState(false);
 
   // Modals state
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
@@ -403,6 +411,40 @@ export default function Dashboard() {
     }
   };
 
+  const handleSaveLogo = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!logoInput) {
+      setActionError('Please upload an image file or enter an image URL.');
+      return;
+    }
+    setSavingLogo(true);
+    setActionError(null);
+    try {
+      await saveSiteLogo(logoInput);
+      showSuccess('Company logo updated successfully across the entire website!');
+      setLogoInput('');
+    } catch (err: any) {
+      setActionError(err.message || 'Failed to save company logo.');
+    } finally {
+      setSavingLogo(false);
+    }
+  };
+
+  const handleResetLogo = async () => {
+    if (!window.confirm('Reset company logo to original factory logo?')) return;
+    setSavingLogo(true);
+    setActionError(null);
+    try {
+      await resetSiteLogo();
+      showSuccess('Company logo reset to factory default.');
+      setLogoInput('');
+    } catch (err: any) {
+      setActionError(err.message || 'Failed to reset company logo.');
+    } finally {
+      setSavingLogo(false);
+    }
+  };
+
   if (authLoading) {
     return (
       <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center p-6">
@@ -516,7 +558,7 @@ export default function Dashboard() {
               <SGLogo className="h-9 w-auto" markOnly />
               <div>
                 <span className="text-lg font-black tracking-tight text-white flex items-center gap-2">
-                  SG Packaging <span className="text-xs bg-blue-600/30 text-blue-400 border border-blue-500/40 px-2 py-0.5 rounded-full font-bold">Admin Console</span>
+                  Yi Lai Plastics Factory <span className="text-xs bg-blue-600/30 text-blue-400 border border-blue-500/40 px-2 py-0.5 rounded-full font-bold">Admin Console</span>
                 </span>
                 <span className="text-[11px] text-slate-400 block">Houston HQ & Yuyao Factory Operations</span>
               </div>
@@ -670,39 +712,57 @@ export default function Dashboard() {
               <FileText size={16} />
               <span>Blog Articles ({posts.length})</span>
             </button>
+            <button
+              onClick={() => setActiveTab('branding')}
+              className={`px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
+                activeTab === 'branding'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <ImageIcon size={16} />
+              <span>Company Logo</span>
+            </button>
           </div>
 
-          {/* Search & Add Button */}
-          <div className="flex items-center gap-3">
-            <div className="relative flex-1 sm:w-64">
-              <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
-              <input
-                type="text"
-                placeholder={`Search ${activeTab}...`}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-              />
+          {/* Search & Add Button (Hidden on branding tab) */}
+          {activeTab !== 'branding' ? (
+            <div className="flex items-center gap-3">
+              <div className="relative flex-1 sm:w-64">
+                <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder={`Search ${activeTab}...`}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+
+              {activeTab === 'products' ? (
+                <button
+                  onClick={() => setIsProductModalOpen(true)}
+                  className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20 active:scale-95 cursor-pointer shrink-0"
+                >
+                  <Plus size={16} />
+                  <span>Add Product</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => setIsBlogModalOpen(true)}
+                  className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-purple-600/20 active:scale-95 cursor-pointer shrink-0"
+                >
+                  <Plus size={16} />
+                  <span>Write Blog Post</span>
+                </button>
+              )}
             </div>
-
-            {activeTab === 'products' ? (
-              <button
-                onClick={() => setIsProductModalOpen(true)}
-                className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20 active:scale-95 cursor-pointer shrink-0"
-              >
-                <Plus size={16} />
-                <span>Add Product</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => setIsBlogModalOpen(true)}
-                className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-purple-600/20 active:scale-95 cursor-pointer shrink-0"
-              >
-                <Plus size={16} />
-                <span>Write Blog Post</span>
-              </button>
-            )}
-          </div>
+          ) : (
+            <div className="flex items-center gap-2 text-xs text-blue-400 font-semibold bg-blue-500/10 border border-blue-500/30 px-3.5 py-2 rounded-xl">
+              <Sparkles size={14} className="animate-spin text-blue-400" />
+              <span>Live Brand Asset Manager</span>
+            </div>
+          )}
         </div>
 
         {/* TAB 1: PRODUCTS TABLE */}
@@ -889,6 +949,158 @@ export default function Dashboard() {
                 No blog posts found matching your search.
               </div>
             )}
+          </div>
+        )}
+
+        {/* TAB 3: BRAND LOGO & ASSETS */}
+        {activeTab === 'branding' && (
+          <div className="space-y-8 animate-fadeIn">
+            {/* Guide Banner for ChatGPT / Downloaded Logos */}
+            <div className="bg-gradient-to-r from-blue-900/40 via-indigo-900/30 to-purple-900/40 border border-blue-500/30 rounded-3xl p-6 sm:p-8 shadow-xl">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold border border-blue-400/30">
+                    <Sparkles size={14} />
+                    <span>Using a Logo from ChatGPT or Designer?</span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-white">
+                    Apply Your Custom Company Logo
+                  </h3>
+                  <p className="text-slate-300 text-xs sm:text-sm max-w-2xl leading-relaxed">
+                    Browser blob URLs (such as <code className="bg-slate-950/80 px-2 py-0.5 rounded text-amber-300 font-mono text-xs">blob:https://chatgpt.com/...</code>) are temporary browser memory links that cannot be fetched by external websites.
+                    To apply your logo: simply <strong>right-click the logo in ChatGPT</strong>, choose <strong>&quot;Save image as...&quot;</strong>, then upload or drag that image file below!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Left Column: Upload & Controls */}
+              <div className="lg:col-span-7 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+                <div>
+                  <h4 className="text-lg font-bold text-white mb-1">Upload New Logo</h4>
+                  <p className="text-xs text-slate-400">
+                    Select a high-resolution PNG (transparent recommended), SVG, or JPG logo file from your device.
+                  </p>
+                </div>
+
+                <form onSubmit={handleSaveLogo} className="space-y-5">
+                  <ImageUploader
+                    label="Logo Image File"
+                    value={logoInput}
+                    onChange={(val) => setLogoInput(val)}
+                    presetImages={PRESET_IMAGES.slice(0, 2)}
+                    helperText="Upload any image from your computer or phone, or choose one of the factory presets. Transparent PNG or SVG formats look best on both light and dark backgrounds."
+                  />
+
+                  <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="submit"
+                        disabled={savingLogo || !logoInput}
+                        className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20 active:scale-95 cursor-pointer"
+                      >
+                        {savingLogo ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            <span>Applying Logo...</span>
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle2 size={16} />
+                            <span>Save &amp; Apply Logo</span>
+                          </>
+                        )}
+                      </button>
+
+                      {logoInput && (
+                        <button
+                          type="button"
+                          onClick={() => setLogoInput('')}
+                          className="text-xs text-slate-400 hover:text-white px-3 py-2 rounded-xl transition-colors cursor-pointer"
+                        >
+                          Clear Selection
+                        </button>
+                      )}
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={handleResetLogo}
+                      disabled={savingLogo}
+                      className="text-xs text-slate-400 hover:text-rose-400 border border-slate-700 hover:border-rose-500/40 px-3.5 py-2 rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+                    >
+                      <span>Reset to Factory Default</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              {/* Right Column: Live Header & Footer Mockup Previews */}
+              <div className="lg:col-span-5 space-y-6">
+                <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl">
+                  <h4 className="text-sm font-bold text-white mb-1 uppercase tracking-wider text-slate-400">
+                    Live Preview: Light Theme (Navbar)
+                  </h4>
+                  <p className="text-xs text-slate-400 mb-4">
+                    How your logo will appear in the top website navigation header:
+                  </p>
+                  
+                  {/* Light Background Mockup */}
+                  <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-3">
+                    <div className="inline-flex items-center justify-center shrink-0">
+                      <img
+                        src={logoInput || currentBrandLogo}
+                        alt="Logo Preview Light"
+                        className="h-11 w-auto object-contain"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = '/sg_logo_transparent.png';
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-col leading-none">
+                      <span className="text-lg font-black tracking-tighter text-slate-900">
+                        YI LAI <span className="text-blue-700">PLASTICS</span>
+                      </span>
+                      <span className="text-[9px] uppercase tracking-[0.25em] font-bold text-slate-400 mt-1">
+                        Plastics &amp; Packaging Factory
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl">
+                  <h4 className="text-sm font-bold text-white mb-1 uppercase tracking-wider text-slate-400">
+                    Live Preview: Dark Theme (Footer / Mobile)
+                  </h4>
+                  <p className="text-xs text-slate-400 mb-4">
+                    How your logo will appear in the footer and dark navigation panels:
+                  </p>
+                  
+                  {/* Dark Background Mockup */}
+                  <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 shadow-sm flex items-center gap-3">
+                    <div className="bg-white/95 px-2 py-1 rounded-lg shadow-sm inline-flex items-center justify-center shrink-0">
+                      <img
+                        src={logoInput || currentBrandLogo}
+                        alt="Logo Preview Dark"
+                        className="h-10 w-auto object-contain"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = '/sg_logo_transparent.png';
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-col leading-none">
+                      <span className="text-lg font-black tracking-tighter text-white">
+                        YI LAI <span className="text-blue-400">PLASTICS</span>
+                      </span>
+                      <span className="text-[9px] uppercase tracking-[0.25em] font-bold text-slate-400 mt-1">
+                        Plastics &amp; Packaging Factory
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </main>

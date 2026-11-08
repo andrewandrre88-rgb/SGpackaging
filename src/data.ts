@@ -188,7 +188,7 @@ Key developments shaping 2024 and beyond include:
 2. Monomaterial Dispensers: Replacing multi-material pump mechanisms (which traditionally rely on steel internal springs and mixed polymers) with 100% polyolefin pumps that can be recycled directly in curbside streams without disassembly.
 3. Lightweighting Engineering: Precision wall-thickness optimization that reduces virgin plastic usage by 15-20% without compromising top-load capacity or vacuum performance.
 
-At SG Packaging, our Yuyao manufacturing facility is equipped with dedicated high-tonnage electric injection molding machines dedicated to PCR formulations, providing third-party certified recycled content verification for our enterprise partners.`,
+At Yi Lai Plastics Factory, our Yuyao manufacturing facility is equipped with dedicated high-tonnage electric injection molding machines dedicated to PCR formulations, providing third-party certified recycled content verification for our enterprise partners.`,
     date: 'Oct 15, 2024',
     author: 'Admin',
     image: cosmeticPackagingImg,
@@ -236,7 +236,7 @@ Typical Industry Benchmarks:
 Strategies to Optimize Your Orders:
 1. Standardize Closures: Use universal 24/410 or 28/410 neck finishes across multiple product lines so orders can be combined to meet production minimums.
 2. Blanket Purchase Orders: Commit to an annual volume with staged quarterly releases to lock in bulk tier pricing while minimizing storage strain.
-3. Work with Hybrid Partners: SG Packaging's presence with our engineering hub in Houston, Texas and direct factory floor in Yuyao, Ningbo bridges the gap between global pricing and localized logistics.`,
+3. Work with Hybrid Partners: Yi Lai Plastics Factory's presence with our engineering hub in Houston, Texas and direct factory floor in Yuyao, Ningbo bridges the gap between global pricing and localized logistics.`,
     date: 'Sep 10, 2024',
     author: 'Sourcing Expert',
     image: factoryInteriorImg,

@@ -38,7 +38,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'home.heroTitle1': 'Precision Dispensing &',
     'home.heroTitle2': 'Packaging Solutions',
     'home.heroSubtitle': 'Direct Factory to Global Brands',
-    'home.heroDesc': 'SG Packaging manufactures industry-leading trigger sprayers, lotion pumps, fine mist dispensers, and cosmetic containers. Dual strategic presence with US Headquarters in Houston, Texas and automated production facilities in Yuyao, Ningbo.',
+    'home.heroDesc': 'Yi Lai Plastics Factory manufactures industry-leading trigger sprayers, lotion pumps, fine mist dispensers, and cosmetic containers. Dual strategic presence with US Headquarters in Houston, Texas and automated production facilities in Yuyao, Ningbo.',
     'home.heroExplore': 'Explore Catalog',
     'home.heroVirtualTour': 'Virtual Factory Tour',
     'home.statYears': '25+ Years Experience',
@@ -50,7 +50,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'home.viewAllProducts': 'View All Products',
     'home.featuredTitle': 'Featured Flagship Products',
     'home.featuredSubtitle': 'High-performance dispensing engines trusted by multinational brands worldwide.',
-    'home.whyTitle': 'Why Partner with SG Packaging?',
+    'home.whyTitle': 'Why Partner with Yi Lai Plastics Factory?',
     'home.whySubtitle': 'End-to-end engineering excellence, strict quality assurance, and dependable global logistics.',
     'home.whyQuality': 'Zero-Leakage Assurance',
     'home.whyQualityDesc': '100% automated vacuum leak testing on every assembly line before carton packaging.',
@@ -103,7 +103,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'factory.bookAudit': 'Book Factory Tour or Audit',
 
     // About Page
-    'about.title': 'About SG Packaging',
+    'about.title': 'About Yi Lai Plastics Factory',
     'about.subtitle': 'A legacy of engineering precision, high-volume production, and trusted global partnerships.',
     'about.dualPresence': 'Dual Presence: Houston, USA & Yuyao, China',
     'about.dualPresenceDesc': 'Connecting global clients seamlessly with direct manufacturer capabilities and local support.',
@@ -127,14 +127,15 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'contact.successDesc': 'Our international sales engineer will reply within 12 hours.',
 
     // Footer
-    'footer.companyDesc': 'Global OEM/ODM manufacturer of trigger sprayers, lotion pumps, fine mist dispensers, and cosmetic packaging. Dual operational presence with US Commercial Headquarters in Houston, Texas and automated production facilities in Yuyao, Ningbo.',
+    'footer.companyDesc': 'Yi Lai Plastics Factory is a premier OEM/ODM manufacturer of trigger sprayers, lotion pumps, fine mist dispensers, and cosmetic packaging. Dual operational presence with US Commercial Headquarters in Houston, Texas and automated production facilities in Yuyao, Ningbo.',
     'footer.quickLinks': 'Quick Navigation',
     'footer.productCategories': 'Product Categories',
     'footer.globalPresence': 'Global Presence',
     'footer.houstonLocation': 'Houston, Texas, USA',
     'footer.yuyaoLocation': 'Yuyao, Ningbo, China',
-    'footer.copyright': 'SG Packaging. All rights reserved.',
+    'footer.copyright': 'Yi Lai Plastics Factory. All rights reserved.',
     'footer.inquirySupport': 'Inquiry Support',
+    'footer.sitemap': 'Site Index & XML Sitemap',
 
     // Admin & Common
     'admin.portal': 'Management Portal',
@@ -176,7 +177,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'home.heroTitle1': 'أنظمة الضخ المبتكرة و',
     'home.heroTitle2': 'حلول التغليف الدقيقة',
     'home.heroSubtitle': 'مباشرة من المصنع إلى العلامات التجارية العالمية',
-    'home.heroDesc': 'تتخصص SG Packaging في تصنيع بخاخات التريجر ومضخات اللوشن وبخاخات الرذاذ الدقيق وعبوات مستحضرات التجميل. حضور استراتيجي مزدوج بمقرنا في هيوستن بتكساس الأمريكية ومصانعنا المؤتمتة الحديثة في يويو، نينغبو.',
+    'home.heroDesc': 'تتخصص Yi Lai Plastics Factory (مصنع يي لاي للبلاستيك) في تصنيع بخاخات التريجر ومضخات اللوشن وبخاخات الرذاذ الدقيق وعبوات مستحضرات التجميل. حضور استراتيجي مزدوج بمقرنا في هيوستن بتكساس الأمريكية ومصانعنا المؤتمتة الحديثة في يويو، نينغبو.',
     'home.heroExplore': 'استكشف الكتالوج',
     'home.heroVirtualTour': 'جولة افتراضية في المصنع',
     'home.statYears': 'خبرة تزيد عن 25 عاماً',
@@ -188,7 +189,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'home.viewAllProducts': 'عرض جميع المنتجات',
     'home.featuredTitle': 'المنتجات الرائدة والأكثر طلباً',
     'home.featuredSubtitle': 'محركات ضخ عالية الأداء وموثوقة من كبرى العلامات التجارية في جميع أنحاء العالم.',
-    'home.whyTitle': 'لماذا يختار المصنّعون الشراكة مع SG Packaging؟',
+    'home.whyTitle': 'لماذا يختار المصنّعون الشراكة مع مصنع يي لاي للبلاستيك (Yi Lai Plastics Factory)؟',
     'home.whySubtitle': 'تميز هندسي متكامل، ومعايير فحص جودة صارمة، وخدمات لوجستية سريعة وموثوقة عالمياً.',
     'home.whyQuality': 'ضمان منع التسريب التام 100%',
     'home.whyQualityDesc': 'فحص تفريغ هوائي واختبار ضغط آلي بنسبة 100% لجميع الخطوط قبل التعبئة والتصدير.',
@@ -241,7 +242,7 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'factory.bookAudit': 'حجز زيارة أو تدقيق ميداني للمصنع',
 
     // About Page
-    'about.title': 'حول شركة SG Packaging',
+    'about.title': 'حول مصنع يي لاي للبلاستيك (Yi Lai Plastics Factory)',
     'about.subtitle': 'عراقة هندسية، إنتاجية ضخمة، وشراكات توريد دولية موثوقة في أكثر من 60 دولة.',
     'about.dualPresence': 'حضور مزدوج: هيوستن، أمريكا ويويو، الصين',
     'about.dualPresenceDesc': 'توفير اتصال سلس بين كبار المستوردين والقدرات الحقيقية المباشرة للمصنع.',
@@ -265,14 +266,15 @@ const TRANSLATIONS: Record<Language, Record<string, string>> = {
     'contact.successDesc': 'سيتواصل معك مهندس المبيعات الدولي خلال 12 ساعة كحد أقصى.',
 
     // Footer
-    'footer.companyDesc': 'مصنّع عالمي OEM/ODM لبخاخات التريجر ومضخات اللوشن وبخاخات الرذاذ الدقيق وعبوات التجميل. حضور استراتيجي مزدوج بمقرنا في هيوستن بتكساس الأمريكية ومصانعنا في يويو، نينغبو.',
+    'footer.companyDesc': 'مصنع يي لاي للبلاستيك (Yi Lai Plastics Factory): مصنّع عالمي OEM/ODM لبخاخات التريجر ومضخات اللوشن وبخاخات الرذاذ الدقيق وعبوات التجميل. حضور استراتيجي مزدوج بمقرنا في هيوستن بتكساس الأمريكية ومصانعنا في يويو، نينغبو.',
     'footer.quickLinks': 'روابط سريعة',
     'footer.productCategories': 'فئات المنتجات',
     'footer.globalPresence': 'فروعنا الدولية',
     'footer.houstonLocation': 'هيوستن، تكساس، الولايات المتحدة',
     'footer.yuyaoLocation': 'يويو، نينغبو، الصين',
-    'footer.copyright': 'SG Packaging. جميع الحقوق محفوظة.',
+    'footer.copyright': 'مصنع يي لاي للبلاستيك (Yi Lai Plastics Factory). جميع الحقوق محفوظة.',
     'footer.inquirySupport': 'الدعم والاستفسارات المباشرة',
+    'footer.sitemap': 'خريطة الموقع (HTML & XML)',
 
     // Admin & Common
     'admin.portal': 'بوابة إدارة الكتالوج',

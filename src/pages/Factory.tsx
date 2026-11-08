@@ -85,7 +85,7 @@ export default function Factory() {
             Precision engineering at global scale.
           </h2>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed">
-            SG Packaging operates advanced manufacturing facilities based in Yuyao, Ningbo, Zhejiang Province, covering over 50,000 square meters. Located in China's premier plastic molding and dispenser production center, our production lines feature over 150 automated injection molding machines, robotic assembly lines, and Class 100,000 dust-free workshops specifically designed for cosmetic packaging.
+            Yi Lai Plastics Factory operates advanced manufacturing facilities based in Yuyao, Ningbo, Zhejiang Province, covering over 50,000 square meters. Located in China's premier plastic molding and dispenser production center, our production lines feature over 150 automated injection molding machines, robotic assembly lines, and Class 100,000 dust-free workshops specifically designed for cosmetic packaging.
           </p>
         </div>
 

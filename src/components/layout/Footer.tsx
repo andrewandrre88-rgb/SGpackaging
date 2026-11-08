@@ -18,10 +18,10 @@ export default function Footer() {
               <SGLogo className="h-11 w-auto" markOnly isDark />
               <div className="flex flex-col">
                 <span className="text-xl font-black tracking-tighter text-white leading-none">
-                  SG <span className="text-blue-400">PACKAGING</span>
+                  YI LAI <span className="text-blue-400">PLASTICS</span>
                 </span>
                 <span className="text-[9px] uppercase tracking-[0.28em] font-bold text-slate-400 mt-1">
-                  A Division of Sino Gate
+                  Plastics &amp; Packaging Factory
                 </span>
               </div>
             </Link>
@@ -60,6 +60,7 @@ export default function Footer() {
               <li><Link to="/gallery" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.gallery')}</Link></li>
               <li><Link to="/blog" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.blog')}</Link></li>
               <li><Link to="/contact" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">{t('nav.contact')}</Link></li>
+              <li><Link to="/sitemap" className="text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1.5">{t('footer.sitemap') || 'HTML & XML Sitemap'}</Link></li>
             </ul>
           </div>
 
@@ -86,7 +87,7 @@ export default function Footer() {
             <p className="text-[10px] text-slate-500 uppercase tracking-widest mb-4">{t('footer.inquirySupport')}</p>
             <p className="text-sm font-medium text-slate-300 mb-2">sales@sgpackaging.com</p>
             <a
-              href="https://wa.me/8618567413851?text=Hello%20SG%20Packaging%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
+              href="https://wa.me/8618567413851?text=Hello%20Yi%20Lai%20Plastics%20Factory%2C%20I%20would%20like%20to%20inquire%20about%20your%20products."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#25D366] hover:text-emerald-400 transition-colors mb-6"
@@ -105,6 +106,8 @@ export default function Footer() {
           <div className="flex space-x-6 rtl:space-x-reverse mt-4 md:mt-0 items-center">
             <Link to="/about" className="hover:text-white transition-colors">{t('nav.about')}</Link>
             <Link to="/contact" className="hover:text-white transition-colors">{t('nav.contact')}</Link>
+            <Link to="/sitemap" className="text-slate-400 hover:text-white transition-colors">{t('footer.sitemap') || 'Sitemap'}</Link>
+            <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-blue-400 transition-colors">XML Sitemap</a>
             <Link to="/admin" className="text-slate-400 hover:text-blue-400 transition-colors">{t('nav.admin')}</Link>
           </div>
         </div>

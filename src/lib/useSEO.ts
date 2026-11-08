@@ -13,7 +13,7 @@ export function useSEO({ title, description, keywords, image }: SEOProps) {
     
     // Update title
     if (title) {
-      document.title = `${title} | SG Packaging`;
+      document.title = `${title} | Yi Lai Plastics Factory`;
     }
 
     // Update meta description
