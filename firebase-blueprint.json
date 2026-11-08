@@ -54,6 +54,16 @@
         "createdAt": { "type": "string" }
       },
       "required": ["email", "role"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Site-wide configuration and branding",
+      "type": "object",
+      "properties": {
+        "logoUrl": { "type": "string", "maxLength": 200000 },
+        "updatedAt": { "type": "string" },
+        "updatedBy": { "type": "string", "maxLength": 200 }
+      }
     }
   },
   "firestore": {
@@ -64,6 +74,10 @@
     "/blog_posts/{postId}": {
       "schema": { "$ref": "#/entities/BlogPost" },
       "description": "Blog posts created via dashboard"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Settings" },
+      "description": "Site branding and metadata settings"
     },
     "/admins/{adminId}": {
       "schema": { "$ref": "#/entities/Admin" },

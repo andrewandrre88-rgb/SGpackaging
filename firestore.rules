@@ -73,6 +73,11 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin() && isValidId(settingId);
     }
 
+    // Connection health probe
+    match /test/{docId} {
+      allow get: if true;
+    }
+
     // Admins registry
     match /admins/{adminId} {
       allow get: if isSignedIn() && (request.auth.uid == adminId || isAdmin());
